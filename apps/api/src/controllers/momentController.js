@@ -32,6 +32,7 @@ class MomentController {
         page: parseInt(page),
         limit: parseInt(limit),
         storeId,
+        userId: req.userId,
       });
 
       return paginated(res, result.moments, result.pagination, 'Moments retrieved successfully');

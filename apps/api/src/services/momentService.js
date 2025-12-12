@@ -19,7 +19,7 @@ class MomentService {
    * Get moments feed
    */
   async getMoments(options = {}) {
-    const { page = PAGINATION.DEFAULT_PAGE, limit = PAGINATION.DEFAULT_LIMIT, storeId } = options;
+    const { page = PAGINATION.DEFAULT_PAGE, limit = PAGINATION.DEFAULT_LIMIT, storeId, userId } = options;
 
     const skip = (page - 1) * limit;
     const query = storeId ? { storeId } : {};
@@ -34,6 +34,20 @@ class MomentService {
         .lean(),
       Moment.countDocuments(query),
     ]);
+
+    // augment with likedByMe if userId provided
+    if (userId && moments.length > 0) {
+      const ids = moments.map(m => m._id);
+      const likes = await MomentLike.find({ userId, momentId: { $in: ids } }).select('momentId').lean();
+      const likedSet = new Set(likes.map(l => String(l.momentId)));
+      for (const m of moments) {
+        m.likedByMe = likedSet.has(String(m._id));
+      }
+    } else {
+      for (const m of moments) {
+        m.likedByMe = false;
+      }
+    }
 
     return {
       moments,
