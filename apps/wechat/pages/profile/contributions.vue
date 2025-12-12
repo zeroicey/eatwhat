@@ -2,27 +2,34 @@
 	<view class="contributions-page">
 		<text class="title">我的贡献</text>
 		<view v-if="!isLoggedIn" class="empty">
+			<uni-icons type="person" size="36"></uni-icons>
 			<text class="empty-text">请先登录后查看你的贡献</text>
 			<button class="btn primary" @click="goLogin">去登录</button>
 		</view>
-	<view class="grid">
-		<view class="card">
-			<text class="card-title">我创建的店铺</text>
-			<text class="card-desc">共 {{ storeTotal }} 条最近贡献</text>
-			<view class="list">
-				<text class="item" v-for="s in myStores" :key="s._id">{{ s.name }}</text>
+	<view v-else class="grid">
+			<view class="card">
+				<text class="card-title">我创建的店铺</text>
+				<text class="card-desc">共 {{ storeTotal }} 条最近贡献</text>
+				<view class="list">
+					<view class="item" v-for="s in myStores" :key="s._id">
+						<uni-icons type="shop" size="22"></uni-icons>
+						<text class="item-text ellipsis">{{ s.name }}</text>
+					</view>
+				</view>
+				<button class="btn" @click="goDiscover">浏览店铺</button>
 			</view>
-			<button class="btn" @click="goDiscover">浏览店铺</button>
-		</view>
-		<view class="card">
-			<text class="card-title">我录入的菜品</text>
-			<text class="card-desc">共 {{ menuTotal }} 条最近贡献</text>
-			<view class="list">
-				<text class="item" v-for="m in myMenuItems" :key="m._id">{{ m.name }} · ¥{{ m.price }}</text>
+			<view class="card">
+				<text class="card-title">我录入的菜品</text>
+				<text class="card-desc">共 {{ menuTotal }} 条最近贡献</text>
+				<view class="list">
+					<view class="item" v-for="m in myMenuItems" :key="m._id">
+						<uni-icons type="list" size="22"></uni-icons>
+						<text class="item-text ellipsis">{{ m.name }} · ¥{{ m.price }}</text>
+					</view>
+				</view>
+				<button class="btn" @click="goHome">浏览首页</button>
 			</view>
-			<button class="btn" @click="goHome">浏览首页</button>
 		</view>
-	</view>
 	</view>
 </template>
 
@@ -117,10 +124,8 @@ function goHome() {
 	gap: 8rpx;
 	margin-bottom: 12rpx;
 }
-.item {
-	font-size: 26rpx;
-	color: #495057;
-}
+.item { display: flex; align-items: center; gap: 8rpx; padding: 12rpx; background: #F8F9FA; border-radius: 12rpx; }
+.item-text { font-size: 26rpx; color: #495057; }
 .btn {
 	height: 72rpx;
 	border-radius: 36rpx;
