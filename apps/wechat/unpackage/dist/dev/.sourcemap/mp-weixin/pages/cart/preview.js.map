@@ -1,1 +1,0 @@
-{"version":3,"file":"preview.js","sources":["../../../../../../../Program Files/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvY2FydC9wcmV2aWV3LnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'C:/Users/happpy/Documents/projects/eatwhat/apps/wechat/pages/cart/preview.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}

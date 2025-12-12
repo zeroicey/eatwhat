@@ -1,1 +1,0 @@
-{"version":3,"file":"publish.js","sources":["../../../../../../../Program Files/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXNcbW9tZW50XHB1Ymxpc2gudnVl"],"sourcesContent":["import MiniProgramPage from 'C:/Users/happpy/Documents/projects/eatwhat/apps/wechat/pages/moment/publish.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}

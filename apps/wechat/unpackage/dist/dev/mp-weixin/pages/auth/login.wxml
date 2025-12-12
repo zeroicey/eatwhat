@@ -1,1 +1,0 @@
-<view class="login-page data-v-2cc9f8c3"><view class="login-container data-v-2cc9f8c3"><text class="title data-v-2cc9f8c3">Welcome to EatWhat</text><text class="subtitle data-v-2cc9f8c3">Login to continue</text><button class="login-btn data-v-2cc9f8c3" bindtap="{{a}}">Login with WeChat</button></view></view>

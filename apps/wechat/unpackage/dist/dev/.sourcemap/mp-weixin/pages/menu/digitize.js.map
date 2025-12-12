@@ -1,1 +1,0 @@
-{"version":3,"file":"digitize.js","sources":["../../../../../../../Program Files/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXNcbWVudVxkaWdpdGl6ZS52dWU"],"sourcesContent":["import MiniProgramPage from 'C:/Users/happpy/Documents/projects/eatwhat/apps/wechat/pages/menu/digitize.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}
