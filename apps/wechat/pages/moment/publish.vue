@@ -110,8 +110,18 @@ async function submit() {
   try {
     submitting.value = true
     let accessUrls = []
-    const localImages = images.value.filter(u => typeof u === 'string' && u.startsWith('file://') || u.startsWith('http') === false)
-    const alreadyUrls = images.value.filter(u => typeof u === 'string' && u.startsWith('http'))
+    const isLocalPath = (u) => {
+      const s = (u || '').toLowerCase()
+      return s.startsWith('wxfile://')
+        || s.startsWith('file://')
+        || s.startsWith('http://127.0.0.1')
+        || s.startsWith('https://127.0.0.1')
+        || s.includes('/__tmp__/')
+        || s.startsWith('http://tmp')
+        || s.startsWith('https://tmp')
+    }
+    const localImages = images.value.filter(isLocalPath)
+    const alreadyUrls = images.value.filter(u => !isLocalPath(u))
     if (localImages.length > 0) {
       accessUrls = await uploadImages(localImages)
     }

@@ -8,10 +8,14 @@ class StorageController {
    */
   async getUploadUrl(req, res, next) {
     try {
-      const { bucket, fileType } = req.body;
+      let { bucket, fileType } = req.body;
 
       if (!bucket || !fileType) {
         return error(res, 'Bucket and fileType are required', 400);
+      }
+
+      if (buckets[bucket]) {
+        bucket = buckets[bucket];
       }
 
       const result = await storageService.getUploadUrl(req.userId, bucket, fileType);
