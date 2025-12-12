@@ -1,17 +1,28 @@
 {
-  "name": "api",
+  "name": "@eatwhat/api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API for EatWhat - A university student food crowdsourcing and ordering platform",
+  "main": "src/app.js",
   "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["food", "crowdsourcing", "wechat", "miniprogram", "express", "mongodb"],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.16.1",
   "dependencies": {
+    "axios": "^1.13.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "minio": "^8.0.6",
     "mongoose": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
