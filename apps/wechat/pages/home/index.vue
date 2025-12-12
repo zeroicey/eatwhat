@@ -51,6 +51,10 @@
                         <view class="moment-content">
                             <text class="content-text ellipsis-2">{{ displayContent(item) }}</text>
                         </view>
+                        <view v-if="item.storeId && item.storeId.name" class="store-info" @click.stop="goStoreDetail(item.storeId._id)">
+                            <uni-icons type="shop" size="14" color="#868E96"></uni-icons>
+                            <text class="store-name ellipsis">{{ item.storeId.name }}</text>
+                        </view>
                         <view class="row-bottom">
                             <view class="user">
                                 <image class="avatar" :src="item.userId?.avatarUrl || defaultAvatar" mode="aspectFill" />
@@ -62,12 +66,7 @@
                             </view>
                         </view>
                     </view>
-                <view class="list-status" v-if="listLoading">
-                    <text class="status-text">加载更多...</text>
-                </view>
-                <view class="list-status" v-else-if="noMore">
-                    <text class="status-text">没有更多了</text>
-                </view>
+
             </view>
         </view>
     </view>
@@ -133,6 +132,7 @@ function goCart() { uni.switchTab({ url: '/pages/cart/index' }) }
 function goPublishMoment() { uni.navigateTo({ url: '/pages/moment/publish' }) }
 function goDigitize() { uni.navigateTo({ url: '/pages/menu/digitize' }) }
 function goMomentDetail(id) { uni.navigateTo({ url: `/pages/moment/detail?id=${id}` }) }
+function goStoreDetail(id) { uni.navigateTo({ url: `/pages/store/detail?id=${id}` }) }
 
 onLoad(() => {
   page.value = 1
@@ -200,6 +200,8 @@ function displayName(item) {
 .moment-content { display: flex; flex-direction: column; gap: 12rpx; }
 .content-text { font-size: 28rpx; color: #343A40; line-height: 1.6; }
 .ellipsis-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.store-info { display: flex; align-items: center; gap: 8rpx; background-color: #F8F9FA; padding: 8rpx 12rpx; border-radius: 8rpx; }
+.store-name { font-size: 24rpx; color: #495057; }
 .row-bottom { display: flex; align-items: center; justify-content: space-between; }
 .user { display: flex; align-items: center; gap: 8rpx; }
 .like { display: flex; align-items: center; gap: 6rpx; color: #495057; }
