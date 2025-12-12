@@ -1,0 +1,889 @@
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/**
+ * 公共样式
+ */
+/**
+ * SCSS 变量系统
+ */
+/**
+ * SCSS 混入
+ */
+/**
+ * SCSS 变量系统
+ */
+/**
+ * 文本溢出省略 - 单行
+ */
+/**
+ * 文本溢出省略 - 多行
+ * @param {Number} $lines - 行数
+ */
+/**
+ * Flex 布局 - 水平居中
+ */
+/**
+ * Flex 布局 - 水平两端对齐
+ */
+/**
+ * Flex 布局 - 水平左对齐
+ */
+/**
+ * Flex 布局 - 水平右对齐
+ */
+/**
+ * Flex 布局 - 垂直居中
+ */
+/**
+ * 1px 边框解决方案
+ * @param {String} $direction - 方向 (top, right, bottom, left, all)
+ * @param {Color} $color - 颜色
+ */
+/**
+ * 安全区域适配 - 顶部
+ */
+/**
+ * 安全区域适配 - 底部
+ */
+/**
+ * 清除浮动
+ */
+/**
+ * 绝对定位居中
+ */
+/**
+ * 响应式断点
+ * @param {String} $breakpoint - 断点
+ */
+page {
+  background-color: #F8F9FA;
+  font-size: 28rpx;
+  color: #212529;
+  line-height: 1.5;
+}
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mt-xs {
+  margin-top: 4rpx;
+}
+.mt-sm {
+  margin-top: 8rpx;
+}
+.mt-md {
+  margin-top: 16rpx;
+}
+.mt-lg {
+  margin-top: 24rpx;
+}
+.mt-xl {
+  margin-top: 32rpx;
+}
+.mb-xs {
+  margin-bottom: 4rpx;
+}
+.mb-sm {
+  margin-bottom: 8rpx;
+}
+.mb-md {
+  margin-bottom: 16rpx;
+}
+.mb-lg {
+  margin-bottom: 24rpx;
+}
+.mb-xl {
+  margin-bottom: 32rpx;
+}
+.ml-xs {
+  margin-left: 4rpx;
+}
+.ml-sm {
+  margin-left: 8rpx;
+}
+.ml-md {
+  margin-left: 16rpx;
+}
+.ml-lg {
+  margin-left: 24rpx;
+}
+.ml-xl {
+  margin-left: 32rpx;
+}
+.mr-xs {
+  margin-right: 4rpx;
+}
+.mr-sm {
+  margin-right: 8rpx;
+}
+.mr-md {
+  margin-right: 16rpx;
+}
+.mr-lg {
+  margin-right: 24rpx;
+}
+.mr-xl {
+  margin-right: 32rpx;
+}
+.pt-xs {
+  padding-top: 4rpx;
+}
+.pt-sm {
+  padding-top: 8rpx;
+}
+.pt-md {
+  padding-top: 16rpx;
+}
+.pt-lg {
+  padding-top: 24rpx;
+}
+.pt-xl {
+  padding-top: 32rpx;
+}
+.pb-xs {
+  padding-bottom: 4rpx;
+}
+.pb-sm {
+  padding-bottom: 8rpx;
+}
+.pb-md {
+  padding-bottom: 16rpx;
+}
+.pb-lg {
+  padding-bottom: 24rpx;
+}
+.pb-xl {
+  padding-bottom: 32rpx;
+}
+.pl-xs {
+  padding-left: 4rpx;
+}
+.pl-sm {
+  padding-left: 8rpx;
+}
+.pl-md {
+  padding-left: 16rpx;
+}
+.pl-lg {
+  padding-left: 24rpx;
+}
+.pl-xl {
+  padding-left: 32rpx;
+}
+.pr-xs {
+  padding-right: 4rpx;
+}
+.pr-sm {
+  padding-right: 8rpx;
+}
+.pr-md {
+  padding-right: 16rpx;
+}
+.pr-lg {
+  padding-right: 24rpx;
+}
+.pr-xl {
+  padding-right: 32rpx;
+}
+.p-xs {
+  padding: 4rpx;
+}
+.p-sm {
+  padding: 8rpx;
+}
+.p-md {
+  padding: 16rpx;
+}
+.p-lg {
+  padding: 24rpx;
+}
+.p-xl {
+  padding: 32rpx;
+}
+.font-xs {
+  font-size: 20rpx;
+}
+.font-sm {
+  font-size: 24rpx;
+}
+.font-md {
+  font-size: 28rpx;
+}
+.font-lg {
+  font-size: 32rpx;
+}
+.font-xl {
+  font-size: 36rpx;
+}
+.font-xxl {
+  font-size: 40rpx;
+}
+.font-light {
+  font-weight: 300;
+}
+.font-normal {
+  font-weight: 400;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-bold {
+  font-weight: 600;
+}
+.text-primary {
+  color: #212529;
+}
+.text-secondary {
+  color: #495057;
+}
+.text-tertiary {
+  color: #868E96;
+}
+.text-disabled {
+  color: #ADB5BD;
+}
+.text-success {
+  color: #51CF66;
+}
+.text-warning {
+  color: #FFA94D;
+}
+.text-error {
+  color: #FF6B6B;
+}
+.text-info {
+  color: #339AF0;
+}
+.bg-primary {
+  background-color: #FFFFFF;
+}
+.bg-secondary {
+  background-color: #F8F9FA;
+}
+.bg-tertiary {
+  background-color: #E9ECEF;
+}
+.radius-sm {
+  border-radius: 4rpx;
+}
+.radius-md {
+  border-radius: 8rpx;
+}
+.radius-lg {
+  border-radius: 12rpx;
+}
+.radius-xl {
+  border-radius: 16rpx;
+}
+.radius-round {
+  border-radius: 999rpx;
+}
+.shadow-sm {
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+.shadow-md {
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+}
+.shadow-lg {
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+}
+.card {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+.divider {
+  height: 1rpx;
+  background: #E9ECEF;
+  margin: 16rpx 0;
+}
+.divider-vertical {
+  width: 1rpx;
+  background: #E9ECEF;
+  margin: 0 16rpx;
+}
+/**
+ * 主题系统
+ */
+/**
+ * SCSS 变量系统
+ */
+:root {
+  --primary-color: #FF6B6B;
+  --primary-light: #FF8787;
+  --primary-dark: #EE5A52;
+  --success-color: #51CF66;
+  --warning-color: #FFA94D;
+  --error-color: #FF6B6B;
+  --info-color: #339AF0;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-tertiary: #868E96;
+  --text-disabled: #ADB5BD;
+  --border-color: #DEE2E6;
+  --border-light: #E9ECEF;
+  --border-dark: #CED4DA;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary: #E9ECEF;
+  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+}
+@media (prefers-color-scheme: dark) {
+:root {
+    --primary-color: #FF8787;
+    --primary-light: #FF6B6B;
+    --primary-dark: #EE5A52;
+    --text-primary: #F8F9FA;
+    --text-secondary: #E9ECEF;
+    --text-tertiary: #ADB5BD;
+    --text-disabled: #6C757D;
+    --border-color: #495057;
+    --border-light: #343A40;
+    --border-dark: #6C757D;
+    --bg-primary: #212529;
+    --bg-secondary: #343A40;
+    --bg-tertiary: #495057;
+    --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.6);
+}
+}
+/* 每个页面公共 CSS */
+page {
+  height: 100%;
+}
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/**
+ * 公共样式
+ */
+/**
+ * SCSS 变量系统
+ */
+/**
+ * SCSS 混入
+ */
+/**
+ * SCSS 变量系统
+ */
+/**
+ * 文本溢出省略 - 单行
+ */
+/**
+ * 文本溢出省略 - 多行
+ * @param {Number} $lines - 行数
+ */
+/**
+ * Flex 布局 - 水平居中
+ */
+/**
+ * Flex 布局 - 水平两端对齐
+ */
+/**
+ * Flex 布局 - 水平左对齐
+ */
+/**
+ * Flex 布局 - 水平右对齐
+ */
+/**
+ * Flex 布局 - 垂直居中
+ */
+/**
+ * 1px 边框解决方案
+ * @param {String} $direction - 方向 (top, right, bottom, left, all)
+ * @param {Color} $color - 颜色
+ */
+/**
+ * 安全区域适配 - 顶部
+ */
+/**
+ * 安全区域适配 - 底部
+ */
+/**
+ * 清除浮动
+ */
+/**
+ * 绝对定位居中
+ */
+/**
+ * 响应式断点
+ * @param {String} $breakpoint - 断点
+ */
+page {
+  background-color: #F8F9FA;
+  font-size: 28rpx;
+  color: #212529;
+  line-height: 1.5;
+}
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mt-xs {
+  margin-top: 4rpx;
+}
+.mt-sm {
+  margin-top: 8rpx;
+}
+.mt-md {
+  margin-top: 16rpx;
+}
+.mt-lg {
+  margin-top: 24rpx;
+}
+.mt-xl {
+  margin-top: 32rpx;
+}
+.mb-xs {
+  margin-bottom: 4rpx;
+}
+.mb-sm {
+  margin-bottom: 8rpx;
+}
+.mb-md {
+  margin-bottom: 16rpx;
+}
+.mb-lg {
+  margin-bottom: 24rpx;
+}
+.mb-xl {
+  margin-bottom: 32rpx;
+}
+.ml-xs {
+  margin-left: 4rpx;
+}
+.ml-sm {
+  margin-left: 8rpx;
+}
+.ml-md {
+  margin-left: 16rpx;
+}
+.ml-lg {
+  margin-left: 24rpx;
+}
+.ml-xl {
+  margin-left: 32rpx;
+}
+.mr-xs {
+  margin-right: 4rpx;
+}
+.mr-sm {
+  margin-right: 8rpx;
+}
+.mr-md {
+  margin-right: 16rpx;
+}
+.mr-lg {
+  margin-right: 24rpx;
+}
+.mr-xl {
+  margin-right: 32rpx;
+}
+.pt-xs {
+  padding-top: 4rpx;
+}
+.pt-sm {
+  padding-top: 8rpx;
+}
+.pt-md {
+  padding-top: 16rpx;
+}
+.pt-lg {
+  padding-top: 24rpx;
+}
+.pt-xl {
+  padding-top: 32rpx;
+}
+.pb-xs {
+  padding-bottom: 4rpx;
+}
+.pb-sm {
+  padding-bottom: 8rpx;
+}
+.pb-md {
+  padding-bottom: 16rpx;
+}
+.pb-lg {
+  padding-bottom: 24rpx;
+}
+.pb-xl {
+  padding-bottom: 32rpx;
+}
+.pl-xs {
+  padding-left: 4rpx;
+}
+.pl-sm {
+  padding-left: 8rpx;
+}
+.pl-md {
+  padding-left: 16rpx;
+}
+.pl-lg {
+  padding-left: 24rpx;
+}
+.pl-xl {
+  padding-left: 32rpx;
+}
+.pr-xs {
+  padding-right: 4rpx;
+}
+.pr-sm {
+  padding-right: 8rpx;
+}
+.pr-md {
+  padding-right: 16rpx;
+}
+.pr-lg {
+  padding-right: 24rpx;
+}
+.pr-xl {
+  padding-right: 32rpx;
+}
+.p-xs {
+  padding: 4rpx;
+}
+.p-sm {
+  padding: 8rpx;
+}
+.p-md {
+  padding: 16rpx;
+}
+.p-lg {
+  padding: 24rpx;
+}
+.p-xl {
+  padding: 32rpx;
+}
+.font-xs {
+  font-size: 20rpx;
+}
+.font-sm {
+  font-size: 24rpx;
+}
+.font-md {
+  font-size: 28rpx;
+}
+.font-lg {
+  font-size: 32rpx;
+}
+.font-xl {
+  font-size: 36rpx;
+}
+.font-xxl {
+  font-size: 40rpx;
+}
+.font-light {
+  font-weight: 300;
+}
+.font-normal {
+  font-weight: 400;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-bold {
+  font-weight: 600;
+}
+.text-primary {
+  color: #212529;
+}
+.text-secondary {
+  color: #495057;
+}
+.text-tertiary {
+  color: #868E96;
+}
+.text-disabled {
+  color: #ADB5BD;
+}
+.text-success {
+  color: #51CF66;
+}
+.text-warning {
+  color: #FFA94D;
+}
+.text-error {
+  color: #FF6B6B;
+}
+.text-info {
+  color: #339AF0;
+}
+.bg-primary {
+  background-color: #FFFFFF;
+}
+.bg-secondary {
+  background-color: #F8F9FA;
+}
+.bg-tertiary {
+  background-color: #E9ECEF;
+}
+.radius-sm {
+  border-radius: 4rpx;
+}
+.radius-md {
+  border-radius: 8rpx;
+}
+.radius-lg {
+  border-radius: 12rpx;
+}
+.radius-xl {
+  border-radius: 16rpx;
+}
+.radius-round {
+  border-radius: 999rpx;
+}
+.shadow-sm {
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+.shadow-md {
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+}
+.shadow-lg {
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+}
+.card {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+.divider {
+  height: 1rpx;
+  background: #E9ECEF;
+  margin: 16rpx 0;
+}
+.divider-vertical {
+  width: 1rpx;
+  background: #E9ECEF;
+  margin: 0 16rpx;
+}
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/**
+ * 主题系统
+ */
+/**
+ * SCSS 变量系统
+ */
+:root {
+  --primary-color: #FF6B6B;
+  --primary-light: #FF8787;
+  --primary-dark: #EE5A52;
+  --success-color: #51CF66;
+  --warning-color: #FFA94D;
+  --error-color: #FF6B6B;
+  --info-color: #339AF0;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-tertiary: #868E96;
+  --text-disabled: #ADB5BD;
+  --border-color: #DEE2E6;
+  --border-light: #E9ECEF;
+  --border-dark: #CED4DA;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary: #E9ECEF;
+  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #FF8787;
+    --primary-light: #FF6B6B;
+    --primary-dark: #EE5A52;
+    --text-primary: #F8F9FA;
+    --text-secondary: #E9ECEF;
+    --text-tertiary: #ADB5BD;
+    --text-disabled: #6C757D;
+    --border-color: #495057;
+    --border-light: #343A40;
+    --border-dark: #6C757D;
+    --bg-primary: #212529;
+    --bg-secondary: #343A40;
+    --bg-tertiary: #495057;
+    --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.6);
+  }
+}page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}

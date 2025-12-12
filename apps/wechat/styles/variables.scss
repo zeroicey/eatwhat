@@ -1,0 +1,94 @@
+/**
+ * SCSS 变量系统
+ */
+
+// 颜色系统
+// 主色调
+$primary-color: #FF6B6B;
+$primary-light: #FF8787;
+$primary-dark: #EE5A52;
+
+// 功能色
+$success-color: #51CF66;
+$warning-color: #FFA94D;
+$error-color: #FF6B6B;
+$info-color: #339AF0;
+
+// 中性色
+$text-primary: #212529;
+$text-secondary: #495057;
+$text-tertiary: #868E96;
+$text-disabled: #ADB5BD;
+
+$border-color: #DEE2E6;
+$border-light: #E9ECEF;
+$border-dark: #CED4DA;
+
+$bg-primary: #FFFFFF;
+$bg-secondary: #F8F9FA;
+$bg-tertiary: #E9ECEF;
+
+// 尺寸系统
+// 基础间距单位
+$spacing-unit: 8rpx;
+$spacing-xs: $spacing-unit * 0.5;  // 4rpx
+$spacing-sm: $spacing-unit;        // 8rpx
+$spacing-md: $spacing-unit * 2;    // 16rpx
+$spacing-lg: $spacing-unit * 3;    // 24rpx
+$spacing-xl: $spacing-unit * 4;    // 32rpx
+$spacing-xxl: $spacing-unit * 6;   // 48rpx
+
+// 字号梯度
+$font-size-xs: 20rpx;
+$font-size-sm: 24rpx;
+$font-size-md: 28rpx;
+$font-size-lg: 32rpx;
+$font-size-xl: 36rpx;
+$font-size-xxl: 40rpx;
+
+// 行高
+$line-height-base: 1.5;
+$line-height-tight: 1.25;
+$line-height-loose: 1.75;
+
+// 字重
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// 圆角
+$radius-sm: 4rpx;
+$radius-md: 8rpx;
+$radius-lg: 12rpx;
+$radius-xl: 16rpx;
+$radius-round: 999rpx;
+
+// 阴影
+$shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+
+// 边框
+$border-width: 1rpx;
+
+// Z-index层级
+$z-index-base: 1;
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// 动画时长
+$transition-fast: 0.15s;
+$transition-base: 0.3s;
+$transition-slow: 0.5s;
+
+// 断点
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

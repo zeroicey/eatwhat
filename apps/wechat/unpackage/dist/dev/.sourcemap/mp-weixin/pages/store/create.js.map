@@ -1,0 +1,1 @@
+{"version":3,"file":"create.js","sources":["../../../../../../../Program Files/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXNcc3RvcmVcY3JlYXRlLnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'C:/Users/happpy/Documents/projects/eatwhat/apps/wechat/pages/store/create.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}

@@ -1,17 +1,174 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Home",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/discover/index",
+			"style": {
+				"navigationBarTitleText": "Discover",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cart/index",
+			"style": {
+				"navigationBarTitleText": "Cart"
+			}
+		},
+		{
+			"path": "pages/profile/index",
+			"style": {
+				"navigationBarTitleText": "Profile"
+			}
+		},
+		{
+			"path": "pages/cart/preview",
+			"style": {
+				"navigationBarTitleText": "Order Preview"
+			}
+		},
+		{
+			"path": "pages/profile/contributions",
+			"style": {
+				"navigationBarTitleText": "My Contributions"
+			}
+		},
+		{
+			"path": "pages/profile/settings",
+			"style": {
+				"navigationBarTitleText": "Settings"
+			}
+		},
+		{
+			"path": "pages/auth/login",
+			"style": {
+				"navigationBarTitleText": "Login",
+				"navigationStyle": "custom"
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "EatWhat",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#FF6B6B",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/home/index",
+				"text": "Home",
+				"iconPath": "static/icons/home.png",
+				"selectedIconPath": "static/icons/home-active.png"
+			},
+			{
+				"pagePath": "pages/discover/index",
+				"text": "Discover",
+				"iconPath": "static/icons/discover.png",
+				"selectedIconPath": "static/icons/discover-active.png"
+			},
+			{
+				"pagePath": "pages/cart/index",
+				"text": "Cart",
+				"iconPath": "static/icons/cart.png",
+				"selectedIconPath": "static/icons/cart-active.png"
+			},
+			{
+				"pagePath": "pages/profile/index",
+				"text": "Profile",
+				"iconPath": "static/icons/profile.png",
+				"selectedIconPath": "static/icons/profile-active.png"
+			}
+		]
+	},
+	"subPackages": [
+		{
+			"root": "pages/store",
+			"pages": [
+				{
+					"path": "detail",
+					"style": {
+						"navigationBarTitleText": "Store Details"
+					}
+				},
+				{
+					"path": "create",
+					"style": {
+						"navigationBarTitleText": "Create Store"
+					}
+				}
+			]
+		},
+		{
+			"root": "pages/menu",
+			"pages": [
+				{
+					"path": "digitize",
+					"style": {
+						"navigationBarTitleText": "Digitize Menu"
+					}
+				},
+				{
+					"path": "item-detail",
+					"style": {
+						"navigationBarTitleText": "Menu Item"
+					}
+				}
+			]
+		},
+		{
+			"root": "pages/moment",
+			"pages": [
+				{
+					"path": "publish",
+					"style": {
+						"navigationBarTitleText": "Publish Moment"
+					}
+				},
+				{
+					"path": "detail",
+					"style": {
+						"navigationBarTitleText": "Moment Details"
+					}
+				}
+			]
+		},
+		{
+			"root": "pages/share",
+			"pages": [
+				{
+					"path": "generate",
+					"style": {
+						"navigationBarTitleText": "Generating..."
+					}
+				},
+				{
+					"path": "result",
+					"style": {
+						"navigationBarTitleText": "Share"
+					}
+				}
+			]
+		}
+	],
+	"preloadRule": {
+		"pages/home/index": {
+			"network": "all",
+			"packages": ["pages/store"]
+		},
+		"pages/store/detail": {
+			"network": "all",
+			"packages": ["pages/share"]
+		}
 	},
 	"uniIdRouter": {}
 }

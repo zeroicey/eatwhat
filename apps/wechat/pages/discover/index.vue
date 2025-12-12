@@ -1,23 +1,23 @@
 <template>
-	<view class="home-page">
-		<text class="title">Home Page - Moments Feed</text>
-		<text class="desc">This is the home page displaying food moments</text>
+	<view class="discover-page">
+		<text class="title">Discover Page - Store List</text>
+		<text class="desc">Browse and search stores</text>
 	</view>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// TODO: 实现动态流功能
-const moments = ref([])
+// TODO: 实现店铺列表功能
+const stores = ref([])
 
 onMounted(() => {
-	console.log('Home page mounted')
+	console.log('Discover page mounted')
 })
 </script>
 
 <style lang="scss" scoped>
-.home-page {
+.discover-page {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
