@@ -1,0 +1,74 @@
+/**
+ * 主题系统
+ */
+@import './variables.scss';
+
+// CSS 变量定义 - 支持主题切换
+:root {
+  // 主色调
+  --primary-color: #{$primary-color};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+
+  // 功能色
+  --success-color: #{$success-color};
+  --warning-color: #{$warning-color};
+  --error-color: #{$error-color};
+  --info-color: #{$info-color};
+
+  // 文本色
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-tertiary: #{$text-tertiary};
+  --text-disabled: #{$text-disabled};
+
+  // 边框色
+  --border-color: #{$border-color};
+  --border-light: #{$border-light};
+  --border-dark: #{$border-dark};
+
+  // 背景色
+  --bg-primary: #{$bg-primary};
+  --bg-secondary: #{$bg-secondary};
+  --bg-tertiary: #{$bg-tertiary};
+
+  // 阴影
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+}
+
+// 深色模式（预留）
+@media (prefers-color-scheme: dark) {
+  :root {
+    // 主色调
+    --primary-color: #{$primary-light};
+    --primary-light: #{$primary-color};
+    --primary-dark: #{$primary-dark};
+
+    // 文本色
+    --text-primary: #F8F9FA;
+    --text-secondary: #E9ECEF;
+    --text-tertiary: #ADB5BD;
+    --text-disabled: #6C757D;
+
+    // 边框色
+    --border-color: #495057;
+    --border-light: #343A40;
+    --border-dark: #6C757D;
+
+    // 背景色
+    --bg-primary: #212529;
+    --bg-secondary: #343A40;
+    --bg-tertiary: #495057;
+
+    // 阴影
+    --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.6);
+  }
+}
+
+// 主题切换过渡动画
+// 注意：避免使用通配符选择器 * 以防止性能问题
+// 如需过渡动画，请在具体组件中单独添加

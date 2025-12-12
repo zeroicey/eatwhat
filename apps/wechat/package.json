@@ -1,0 +1,35 @@
+{
+  "name": "eatwhat-wechat",
+  "version": "1.0.0",
+  "description": "EatWhat WeChat Mini Program",
+  "main": "main.js",
+  "scripts": {
+    "dev": "npm run dev:mp-weixin",
+    "build": "npm run build:mp-weixin",
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "latest",
+    "@dcloudio/uni-mp-weixin": "latest",
+    "@tanstack/vue-query": "^5.92.1",
+    "@vue/shared": "^3.3.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "latest",
+    "@dcloudio/uni-automator": "latest",
+    "@dcloudio/uni-cli-shared": "latest",
+    "@dcloudio/vite-plugin-uni": "latest",
+    "@vue/test-utils": "^2.4.3",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "vite": "^5.0.0",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
