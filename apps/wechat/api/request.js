@@ -2,6 +2,7 @@
  * 请求封装 - 统一请求处理
  * 封装 uni.request 为 Promise 风格
  */
+import { requestInterceptor, responseInterceptor, errorInterceptor } from './interceptors'
 
 // API 基础地址
 const BASE_URL = process.env.NODE_ENV === 'development' 
@@ -22,18 +23,30 @@ function request(options) {
       header = {},
       timeout = 30000
     } = options
-
-    uni.request({
+    const config = requestInterceptor({
       url: BASE_URL + url,
       method,
       data,
       header,
-      timeout,
-      success: (res) => {
-        resolve(res)
+      timeout
+    })
+
+    uni.request({
+      ...config,
+      success: async (res) => {
+        try {
+          const data = await responseInterceptor(res)
+          resolve(data)
+        } catch (err) {
+          reject(err)
+        }
       },
-      fail: (err) => {
-        reject(err)
+      fail: async (err) => {
+        try {
+          await errorInterceptor(err)
+        } finally {
+          reject(err)
+        }
       }
     })
   })

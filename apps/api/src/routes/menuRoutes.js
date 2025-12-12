@@ -5,6 +5,7 @@ const authMiddleware = require('../middlewares/auth');
 
 // Public routes
 router.get('/', menuController.getMenuItems.bind(menuController));
+router.get('/:id', menuController.getMenuItemById.bind(menuController));
 
 // Protected routes
 router.post('/', authMiddleware, menuController.createMenuItem.bind(menuController));

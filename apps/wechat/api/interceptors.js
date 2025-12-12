@@ -44,26 +44,26 @@ export function requestInterceptor(config) {
  */
 export function responseInterceptor(response) {
   const appStore = useAppStore()
-  
-  // 开发环境日志
   if (process.env.NODE_ENV === 'development') {
     console.log('[Response]', response.statusCode, response.data)
   }
-
-  // HTTP 状态码处理
   if (response.statusCode >= 200 && response.statusCode < 300) {
-    const { code, data, message } = response.data
-
-    // 业务错误码处理
-    if (code !== 0 && code !== 200) {
-      handleBusinessError(code, message)
-      return Promise.reject({ code, message })
+    const payload = response.data || {}
+    const { success, data, message, code } = payload
+    if (typeof success === 'boolean') {
+      if (success) {
+        return Promise.resolve(data)
+      } else {
+        handleBusinessError(code ?? -1, message)
+        return Promise.reject({ code: code ?? -1, message })
+      }
     }
-
-    // 返回数据
-    return Promise.resolve(data)
+    if (code === 0 || code === 200) {
+      return Promise.resolve(data)
+    }
+    handleBusinessError(code ?? -1, message)
+    return Promise.reject({ code: code ?? -1, message })
   } else {
-    // HTTP 错误处理
     handleHttpError(response.statusCode)
     return Promise.reject(response)
   }

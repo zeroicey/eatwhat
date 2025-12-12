@@ -2,42 +2,36 @@ const authService = require('../services/authService');
 const { success, error } = require('../utils/response');
 
 class AuthController {
-  /**
-   * POST /api/auth/login
-   */
-  async login(req, res, next) {
+  async register(req, res, next) {
     try {
-      const { code, userInfo } = req.body;
-
-      if (!code) {
-        return error(res, 'Code is required', 400);
+      const { username, password, nickName, avatarUrl } = req.body || {};
+      if (!username || !password) {
+        return error(res, 'Username and password are required', 400);
       }
-
-      const result = await authService.wechatLogin(code, userInfo);
-
-      return success(res, result, 'Login successful');
+      const result = await authService.register(username, password, { nickName, avatarUrl });
+      return success(res, result, 'Register successful');
     } catch (err) {
+      if (err.code === 'USER_EXISTS') {
+        return error(res, 'Username already exists', 400);
+      }
       next(err);
     }
   }
 
-  /**
-   * POST /api/auth/refresh
-   */
-  async refresh(req, res, next) {
+  async passwordLogin(req, res, next) {
     try {
-      const { refreshToken } = req.body;
-
-      if (!refreshToken) {
-        return error(res, 'Refresh token is required', 400);
+      const { username, password } = req.body || {};
+      if (!username || !password) {
+        return error(res, 'Username and password are required', 400);
       }
-
-      const result = await authService.refreshToken(refreshToken);
-
-      return success(res, result, 'Token refreshed');
+      const result = await authService.passwordLogin(username, password);
+      return success(res, result, 'Login successful');
     } catch (err) {
-      if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
-        return error(res, 'Invalid or expired refresh token', 401);
+      if (err.code === 'USER_NOT_FOUND') {
+        return error(res, 'User not found', 404);
+      }
+      if (err.code === 'INVALID_PASSWORD') {
+        return error(res, 'Invalid password', 401);
       }
       next(err);
     }

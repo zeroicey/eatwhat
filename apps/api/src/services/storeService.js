@@ -67,6 +67,47 @@ class StoreService {
   }
 
   /**
+   * Search stores by keyword with optional distance/update sort
+   */
+  async searchStores(keyword = '', options = {}) {
+    const {
+      page = PAGINATION.DEFAULT_PAGE,
+      limit = PAGINATION.DEFAULT_LIMIT,
+      sortBy = STORE_SORT.UPDATED,
+      longitude,
+      latitude,
+      maxDistance = 10000,
+    } = options;
+
+    const skip = (page - 1) * limit;
+    const regex = new RegExp(keyword, 'i');
+    let query = {
+      $or: [{ name: regex }, { description: regex }],
+    };
+    let sort = {};
+
+    if (sortBy === STORE_SORT.DISTANCE && longitude && latitude) {
+      query['location.coordinates'] = {
+        $near: {
+          $geometry: { type: 'Point', coordinates: [parseFloat(longitude), parseFloat(latitude)] },
+          $maxDistance: maxDistance,
+        },
+      };
+    } else {
+      sort = { updatedAt: -1 };
+    }
+
+    const [stores, total] = await Promise.all([
+      Store.find(query).sort(sort).skip(skip).limit(limit).populate('creator', 'nickName avatarUrl').lean(),
+      Store.countDocuments(query),
+    ]);
+
+    return {
+      stores,
+      pagination: { page, limit, total },
+    };
+  }
+  /**
    * Get store by ID
    */
   async getStoreById(storeId) {

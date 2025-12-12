@@ -1,6 +1,3 @@
-/**
- * 菜单相关 API
- */
 import { get, post } from './request'
 
 /**
@@ -8,8 +5,9 @@ import { get, post } from './request'
  * @param {String} storeId - 店铺ID
  * @returns {Promise}
  */
-export function getMenuItems(storeId) {
-  return get(`/menus/${storeId}`)
+export function getMenuItems(storeId, params = {}) {
+  const query = { storeId, ...params }
+  return get('/menus', query)
 }
 
 /**
@@ -18,8 +16,9 @@ export function getMenuItems(storeId) {
  * @param {Array} items - 菜品列表
  * @returns {Promise}
  */
-export function digitizeMenu(storeId, items) {
-  return post(`/menus/${storeId}/digitize`, { items })
+export function digitizeMenu(payload) {
+  // payload: { storeId, name, price }
+  return post('/menus', payload)
 }
 
 /**
@@ -28,7 +27,7 @@ export function digitizeMenu(storeId, items) {
  * @returns {Promise}
  */
 export function getMenuItem(itemId) {
-  return get(`/menus/items/${itemId}`)
+  return get(`/menus/${itemId}`)
 }
 
 /**
@@ -37,7 +36,7 @@ export function getMenuItem(itemId) {
  * @returns {Promise}
  */
 export function likeMenuItem(itemId) {
-  return post(`/menus/items/${itemId}/like`)
+  return post(`/menus/${itemId}/like`)
 }
 
 /**
@@ -46,6 +45,6 @@ export function likeMenuItem(itemId) {
  * @param {String} reason - 报错原因
  * @returns {Promise}
  */
-export function reportMenuItem(itemId, reason) {
-  return post(`/menus/items/${itemId}/report`, { reason })
+export function reportMenuItem(itemId) {
+  return post(`/menus/${itemId}/report`)
 }

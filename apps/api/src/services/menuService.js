@@ -34,12 +34,18 @@ class MenuService {
 
     return {
       items,
-      pagination: {
-        page,
-        limit,
-        total,
-      },
+      pagination:
+        {
+          page,
+          limit,
+          total,
+        },
     };
+  }
+
+  async getMenuItemById(id) {
+    const item = await MenuItem.findById(id).lean();
+    return item;
   }
 
   /**

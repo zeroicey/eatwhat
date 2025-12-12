@@ -1,16 +1,18 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const storageController = require('../controllers/storageController');
-const authMiddleware = require('../middlewares/auth');
-const { uploadLimiter } = require('../middlewares/rateLimit');
+const storageController = require("../controllers/storageController");
+const authMiddleware = require("../middlewares/auth");
 
 // All storage routes require authentication
 router.post(
-  '/upload-url',
+  "/upload-url",
   authMiddleware,
-  uploadLimiter,
   storageController.getUploadUrl.bind(storageController)
 );
-router.post('/access-url', authMiddleware, storageController.getAccessUrl.bind(storageController));
+router.post(
+  "/access-url",
+  authMiddleware,
+  storageController.getAccessUrl.bind(storageController)
+);
 
 module.exports = router;

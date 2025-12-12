@@ -22,27 +22,50 @@ export function getUploadUrl(params) {
  */
 export function uploadToMinio(uploadUrl, filePath, onProgress) {
   return new Promise((resolve, reject) => {
-    const uploadTask = uni.uploadFile({
-      url: uploadUrl,
-      filePath: filePath,
-      name: 'file',
-      success: (res) => {
-        if (res.statusCode === 200) {
-          resolve(res)
-        } else {
-          reject(new Error('Upload failed'))
-        }
-      },
-      fail: (err) => {
-        reject(err)
+    try {
+      const fs = uni.getFileSystemManager && uni.getFileSystemManager()
+      if (!fs) {
+        reject(new Error('FileSystemManager not available'))
+        return
       }
-    })
-
-    // 监听上传进度
-    if (onProgress && typeof onProgress === 'function') {
-      uploadTask.onProgressUpdate((progress) => {
-        onProgress(progress.progress)
+      fs.readFile({
+        filePath,
+        success: (readRes) => {
+          const ext = (filePath.split('.').pop() || 'jpg').toLowerCase()
+          const MIME_MAP = {
+            jpg: 'image/jpeg',
+            jpeg: 'image/jpeg',
+            png: 'image/png',
+            webp: 'image/webp'
+          }
+          const contentType = MIME_MAP[ext] || 'application/octet-stream'
+          // 使用 PUT 原始二进制体上传，避免 multipart 与多重认证问题
+          uni.request({
+            url: uploadUrl,
+            method: 'PUT',
+            header: {
+              'Content-Type': contentType
+              // 不附加 Authorization，避免与预签名冲突
+            },
+            data: readRes.data,
+            success: (res) => {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                resolve(res)
+              } else {
+                reject(new Error(`Upload failed: ${res.statusCode}`))
+              }
+            },
+            fail: (err) => {
+              reject(err)
+            }
+          })
+        },
+        fail: (err) => {
+          reject(err)
+        }
       })
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -57,9 +80,9 @@ export async function uploadImages(filePaths, onProgress) {
   const uploadPromises = filePaths.map(async (filePath, index) => {
     try {
       // 获取预签名 URL
+      const ext = (filePath.split('.').pop() || 'jpg').toLowerCase()
       const { uploadUrl, accessUrl } = await getUploadUrl({
-        filename: `image_${Date.now()}_${index}.jpg`,
-        fileType: 'image/jpeg'
+        fileType: ext
       })
 
       // 上传到 Minio

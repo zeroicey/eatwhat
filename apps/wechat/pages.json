@@ -3,51 +3,51 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "Home",
+				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/discover/index",
 			"style": {
-				"navigationBarTitleText": "Discover",
+				"navigationBarTitleText": "发现",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/cart/index",
 			"style": {
-				"navigationBarTitleText": "Cart"
+				"navigationBarTitleText": "购物车"
 			}
 		},
 		{
 			"path": "pages/profile/index",
 			"style": {
-				"navigationBarTitleText": "Profile"
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
 			"path": "pages/cart/preview",
 			"style": {
-				"navigationBarTitleText": "Order Preview"
+				"navigationBarTitleText": "下单预览"
 			}
 		},
 		{
 			"path": "pages/profile/contributions",
 			"style": {
-				"navigationBarTitleText": "My Contributions"
+				"navigationBarTitleText": "我的贡献"
 			}
 		},
 		{
 			"path": "pages/profile/settings",
 			"style": {
-				"navigationBarTitleText": "Settings"
+				"navigationBarTitleText": "设置"
 			}
 		},
 		{
 			"path": "pages/auth/login",
 			"style": {
-				"navigationBarTitleText": "Login",
+				"navigationBarTitleText": "登录",
 				"navigationStyle": "custom"
 			}
 		}
@@ -66,25 +66,25 @@
 		"list": [
 			{
 				"pagePath": "pages/home/index",
-				"text": "Home",
+				"text": "首页",
 				"iconPath": "static/icons/home.png",
 				"selectedIconPath": "static/icons/home-active.png"
 			},
 			{
 				"pagePath": "pages/discover/index",
-				"text": "Discover",
+				"text": "发现",
 				"iconPath": "static/icons/discover.png",
 				"selectedIconPath": "static/icons/discover-active.png"
 			},
 			{
 				"pagePath": "pages/cart/index",
-				"text": "Cart",
+				"text": "购物车",
 				"iconPath": "static/icons/cart.png",
 				"selectedIconPath": "static/icons/cart-active.png"
 			},
 			{
 				"pagePath": "pages/profile/index",
-				"text": "Profile",
+				"text": "我的",
 				"iconPath": "static/icons/profile.png",
 				"selectedIconPath": "static/icons/profile-active.png"
 			}
@@ -97,13 +97,13 @@
 				{
 					"path": "detail",
 					"style": {
-						"navigationBarTitleText": "Store Details"
+						"navigationBarTitleText": "店铺详情"
 					}
 				},
 				{
 					"path": "create",
 					"style": {
-						"navigationBarTitleText": "Create Store"
+						"navigationBarTitleText": "创建店铺"
 					}
 				}
 			]
@@ -114,13 +114,13 @@
 				{
 					"path": "digitize",
 					"style": {
-						"navigationBarTitleText": "Digitize Menu"
+						"navigationBarTitleText": "菜单数字化"
 					}
 				},
 				{
 					"path": "item-detail",
 					"style": {
-						"navigationBarTitleText": "Menu Item"
+						"navigationBarTitleText": "菜品详情"
 					}
 				}
 			]
@@ -131,13 +131,13 @@
 				{
 					"path": "publish",
 					"style": {
-						"navigationBarTitleText": "Publish Moment"
+						"navigationBarTitleText": "发布动态"
 					}
 				},
 				{
 					"path": "detail",
 					"style": {
-						"navigationBarTitleText": "Moment Details"
+						"navigationBarTitleText": "动态详情"
 					}
 				}
 			]
@@ -148,13 +148,13 @@
 				{
 					"path": "generate",
 					"style": {
-						"navigationBarTitleText": "Generating..."
+						"navigationBarTitleText": "生成中..."
 					}
 				},
 				{
 					"path": "result",
 					"style": {
-						"navigationBarTitleText": "Share"
+						"navigationBarTitleText": "分享"
 					}
 				}
 			]

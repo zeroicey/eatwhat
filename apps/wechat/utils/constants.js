@@ -46,7 +46,7 @@ export const UPLOAD_CONFIG = {
 }
 
 // Token 过期时间（7天）
-export const TOKEN_EXPIRY = 7 * 24 * 60 * 60 * 1000
+export const TOKEN_EXPIRY = 365 * 24 * 60 * 60 * 1000
 
 // 请求超时时间
 export const REQUEST_TIMEOUT = 30000

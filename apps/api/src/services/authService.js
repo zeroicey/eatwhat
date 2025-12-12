@@ -1,87 +1,58 @@
-const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const wechatConfig = require('../config/wechat');
 const jwtConfig = require('../config/jwt');
+const bcrypt = require('bcryptjs');
 
 class AuthService {
-  /**
-   * WeChat login
-   */
-  async wechatLogin(code, userInfo = {}) {
-    try {
-      // Call WeChat code2Session API
-      const response = await axios.get(wechatConfig.code2SessionUrl, {
-        params: {
-          appid: wechatConfig.appId,
-          secret: wechatConfig.secret,
-          js_code: code,
-          grant_type: 'authorization_code',
-        },
-      });
-
-      const { openid, session_key, errcode, errmsg } = response.data;
-
-      if (errcode) {
-        throw new Error(`WeChat API error: ${errmsg}`);
-      }
-
-      // Find or create user
-      let user = await User.findOne({ openId: openid });
-
-      if (!user) {
-        user = await User.create({
-          openId: openid,
-          nickName: userInfo.nickName || '',
-          avatarUrl: userInfo.avatarUrl || '',
-        });
-      } else if (userInfo.nickName || userInfo.avatarUrl) {
-        // Update user info if provided
-        if (userInfo.nickName) user.nickName = userInfo.nickName;
-        if (userInfo.avatarUrl) user.avatarUrl = userInfo.avatarUrl;
-        await user.save();
-      }
-
-      // Generate JWT token
-      const token = this.generateToken(user._id);
-      const refreshToken = this.generateRefreshToken(user._id);
-
-      return {
-        user: {
-          id: user._id,
-          nickName: user.nickName,
-          avatarUrl: user.avatarUrl,
-        },
-        token,
-        refreshToken,
-      };
-    } catch (error) {
-      throw error;
+  async register(username, password, profile = {}) {
+    const exists = await User.findOne({ username });
+    if (exists) {
+      const err = new Error('User exists');
+      err.code = 'USER_EXISTS';
+      throw err;
     }
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      username,
+      passwordHash: hash,
+      nickName: profile.nickName || '',
+      avatarUrl: profile.avatarUrl || '',
+    });
+    const token = this.generateToken(user._id);
+    return {
+      user: {
+        id: user._id,
+        nickName: user.nickName,
+        avatarUrl: user.avatarUrl,
+        username: user.username,
+      },
+      token,
+    };
   }
 
-  /**
-   * Refresh token
-   */
-  async refreshToken(refreshToken) {
-    try {
-      const decoded = jwt.verify(refreshToken, jwtConfig.secret);
-      const user = await User.findById(decoded.userId);
-
-      if (!user) {
-        throw new Error('User not found');
-      }
-
-      const newToken = this.generateToken(user._id);
-      const newRefreshToken = this.generateRefreshToken(user._id);
-
-      return {
-        token: newToken,
-        refreshToken: newRefreshToken,
-      };
-    } catch (error) {
-      throw error;
+  async passwordLogin(username, password) {
+    const user = await User.findOne({ username });
+    if (!user) {
+      const err = new Error('User not found');
+      err.code = 'USER_NOT_FOUND';
+      throw err;
     }
+    const ok = await bcrypt.compare(password, user.passwordHash || '');
+    if (!ok) {
+      const err = new Error('Invalid password');
+      err.code = 'INVALID_PASSWORD';
+      throw err;
+    }
+    const token = this.generateToken(user._id);
+    return {
+      user: {
+        id: user._id,
+        nickName: user.nickName,
+        avatarUrl: user.avatarUrl,
+        username: user.username,
+      },
+      token,
+    };
   }
 
   /**
@@ -93,14 +64,6 @@ class AuthService {
     });
   }
 
-  /**
-   * Generate refresh token
-   */
-  generateRefreshToken(userId) {
-    return jwt.sign({ userId }, jwtConfig.secret, {
-      expiresIn: jwtConfig.refreshExpiresIn,
-    });
-  }
 }
 
 module.exports = new AuthService();

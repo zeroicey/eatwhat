@@ -2,6 +2,7 @@
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { getMe } from '@/api/user'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
@@ -23,6 +24,15 @@ onLaunch(() => {
     // 未登录，跳转到登录页
     // 注意：小程序首次启动可能需要先进入首页再引导登录
     console.log('User not authenticated')
+  } else {
+    getMe().then((me) => {
+      const mapped = {
+        id: me.id || me._id || null,
+        nickname: me.nickName || me.nickname || '',
+        avatar: me.avatarUrl || me.avatar || ''
+      }
+      userStore.updateProfile(mapped)
+    }).catch(() => {})
   }
 })
 

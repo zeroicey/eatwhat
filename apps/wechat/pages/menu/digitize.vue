@@ -1,27 +1,237 @@
 <template>
 	<view class="digitize-menu-page">
-		<text class="title">Digitize Menu</text>
-		<text class="desc">Add menu items</text>
+		<text class="title"><uni-icons type="compose" size="22"></uni-icons> 菜单数字化</text>
+		<view class="form">
+			<input class="input" type="text" v-model="name" placeholder="菜名" />
+			<input class="input" type="digit" v-model="price" placeholder="价格（元）" />
+			<button class="btn primary" :disabled="submitting" @click="submitItem"><uni-icons type="plus" size="22"></uni-icons> 添加菜品</button>
+		</view>
+		<view class="list-header">
+			<text class="list-title">已录入菜品</text>
+			<text class="meta">共 {{ total }} 条</text>
+		</view>
+		<view class="list">
+			<view class="item" v-for="m in items" :key="m._id">
+				<view class="row">
+					<text class="name">{{ m.name }}</text>
+					<text class="price">¥{{ m.price }}</text>
+				</view>
+				<view class="row2">
+					<text class="status" v-if="m.status === 'pending'">待确认</text>
+					<view class="actions">
+						<button class="btn small" @click="handleLike(m)"><uni-icons type="heart" size="20" color="#E03131"></uni-icons> {{ m.likeCount || 0 }}</button>
+						<button class="btn small danger" @click="handleReport(m)"><uni-icons type="alert" size="20" color="#E03131"></uni-icons> {{ m.reportCount || 0 }}</button>
+						<button class="btn small" @click="goDetail(m)"><uni-icons type="info" size="20"></uni-icons> 详情</button>
+					</view>
+				</view>
+			</view>
+			<button v-if="hasMore && !loading" class="btn" @click="loadMore"><uni-icons type="more" size="22"></uni-icons> 加载更多</button>
+			<text v-if="loading" class="loading">加载中...</text>
+		</view>
 	</view>
 </template>
 
 <script setup>
-// TODO: 实现菜单数字化功能
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import { useAppStore } from '@/stores/app'
+import { getMenuItems, digitizeMenu, likeMenuItem, reportMenuItem } from '@/api/menu'
+
+const appStore = useAppStore()
+const storeId = ref('')
+const name = ref('')
+const price = ref('')
+const submitting = ref(false)
+const items = ref([])
+const page = ref(1)
+const limit = ref(20)
+const total = ref(0)
+const loading = ref(false)
+const hasMore = ref(false)
+
+onLoad((options) => {
+	storeId.value = options?.storeId || ''
+	loadList(true)
+})
+
+function validate() {
+	if (!storeId.value) {
+		appStore.showToast({ message: '缺少店铺ID', type: 'error' })
+		return false
+	}
+	if (!name.value || !name.value.trim()) {
+		appStore.showToast({ message: '请输入菜名', type: 'error' })
+		return false
+	}
+	const p = Number(price.value)
+	if (isNaN(p) || p <= 0) {
+		appStore.showToast({ message: '请输入有效价格', type: 'error' })
+		return false
+	}
+	// 保留两位小数
+	price.value = (Math.round(p * 100) / 100).toString()
+	return true
+}
+
+async function submitItem() {
+	if (submitting.value) return
+	if (!validate()) return
+	try {
+		submitting.value = true
+		await digitizeMenu({ storeId: storeId.value, name: name.value.trim(), price: Number(price.value) })
+		name.value = ''
+		price.value = ''
+		page.value = 1
+		await loadList(true)
+		appStore.showToast({ message: '添加成功', type: 'success' })
+	} catch (err) {
+		console.error('Add menu item failed:', err)
+		appStore.showToast({ message: '添加失败', type: 'error' })
+	} finally {
+		submitting.value = false
+	}
+}
+
+async function loadList(refresh = false) {
+	try {
+		loading.value = true
+		const res = await getMenuItems(storeId.value, { page: page.value, limit: limit.value })
+		const list = Array.isArray(res) ? res : (res?.items || res || [])
+		if (refresh) {
+			items.value = list
+		} else {
+			items.value = items.value.concat(list)
+		}
+		// 尝试从响应结构读取分页信息
+		const totalCount = res?.pagination?.total ?? list.length
+		total.value = totalCount
+		hasMore.value = items.value.length < totalCount
+	} catch (err) {
+		console.error('Load menu items failed:', err)
+	} finally {
+		loading.value = false
+	}
+}
+
+function loadMore() {
+	if (loading.value || !hasMore.value) return
+	page.value += 1
+	loadList(false)
+}
+
+async function handleLike(m) {
+	try {
+		const prev = m.likeCount || 0
+		m.likeCount = prev + 1
+		const result = await likeMenuItem(m._id)
+		if (result && result.liked === false) {
+			m.likeCount = Math.max(0, prev - 1)
+		}
+	} catch (err) {
+		console.error('Like failed:', err)
+	}
+}
+
+async function handleReport(m) {
+	try {
+		m.reportCount = (m.reportCount || 0) + 1
+		const updated = await reportMenuItem(m._id)
+		if (updated && updated.status === 'pending') {
+			m.status = 'pending'
+		}
+	} catch (err) {
+		console.error('Report failed:', err)
+	}
+}
+
+function goDetail(m) {
+	uni.navigateTo({ url: `/pages/menu/item-detail?id=${m._id}` })
+}
 </script>
 
 <style lang="scss" scoped>
 .digitize-menu-page {
 	padding: 32rpx;
-
-	.title {
-		font-size: 36rpx;
-		font-weight: 600;
-		margin-bottom: 16rpx;
-	}
-
-	.desc {
-		font-size: 28rpx;
-		color: #868E96;
-	}
+	display: flex;
+	flex-direction: column;
+	gap: 16rpx;
+}
+.title {
+	font-size: 36rpx;
+	font-weight: 600;
+	color: #212529;
+}
+.form {
+	display: grid;
+	grid-template-columns: 1fr 1fr auto;
+	gap: 12rpx;
+	background: #FFFFFF;
+	border-radius: 12rpx;
+	padding: 12rpx;
+}
+.input {
+	height: 72rpx;
+	background: #F8F9FA;
+	border-radius: 8rpx;
+	padding: 0 20rpx;
+	font-size: 28rpx;
+}
+.list-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.list-title {
+	font-size: 32rpx;
+	font-weight: 600;
+	color: #212529;
+}
+.meta {
+	font-size: 26rpx;
+	color: #868E96;
+}
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 12rpx;
+}
+.item {
+	background: #FFFFFF;
+	border-radius: 12rpx;
+	padding: 16rpx;
+	box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.name {
+	font-size: 30rpx;
+	color: #212529;
+}
+.price {
+	font-size: 28rpx;
+	color: #343A40;
+}
+.row2 {
+	margin-top: 8rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.status {
+	font-size: 24rpx;
+	color: #E03131;
+}
+.actions {
+	display: flex;
+	gap: 8rpx;
+}
+.loading {
+	font-size: 26rpx;
+	color: #868E96;
+	text-align: center;
+	padding: 8rpx 0;
 }
 </style>

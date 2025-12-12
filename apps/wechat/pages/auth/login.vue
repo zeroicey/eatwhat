@@ -3,7 +3,10 @@
 		<view class="login-container">
 			<text class="title">Welcome to EatWhat</text>
 			<text class="subtitle">Login to continue</text>
-			<button class="login-btn" @click="handleLogin">Login with WeChat</button>
+			<input class="text-input" type="text" v-model="username" placeholder="用户名" />
+			<input class="text-input" type="password" v-model="password" placeholder="密码" />
+			<button class="login-btn" :disabled="isLogging" @click="handleLogin">登录</button>
+			<button class="register-btn" :disabled="isLogging" @click="handleRegister">注册</button>
 		</view>
 	</view>
 </template>
@@ -11,30 +14,74 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { login as loginApi, register as registerApi } from '@/api/auth'
+import { ref } from 'vue'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
+const isLogging = ref(false)
+const username = ref('')
+const password = ref('')
 
-// TODO: 实现微信登录
 const handleLogin = () => {
-	uni.login({
-		provider: 'weixin',
-		success: (loginRes) => {
-			console.log('Login code:', loginRes.code)
-			// TODO: 调用后端接口进行登录
-			appStore.showToast({
-				message: 'Login feature coming soon',
-				type: 'info'
+	if (isLogging.value) return
+	if (isLogging.value) return
+	isLogging.value = true
+	appStore.showLoading('Logging in...')
+	loginApi({ username: username.value, password: password.value })
+		.then((result) => {
+			const { token, user } = result || {}
+			if (!token || !user) throw new Error('Invalid login response')
+			userStore.login({
+				token,
+				userInfo: {
+					id: user.id || user._id || user.userId || null,
+					nickname: user.nickName || user.nickname || '',
+					avatar: user.avatarUrl || user.avatar || '',
+					username: user.username || username.value
+				}
 			})
-		},
-		fail: (err) => {
+			appStore.hideLoading()
+			isLogging.value = false
+			appStore.showToast({ message: '登录成功', type: 'success' })
+			uni.reLaunch({ url: '/pages/profile/index' })
+		})
+		.catch((err) => {
 			console.error('Login failed:', err)
-			appStore.showToast({
-				message: 'Login failed',
-				type: 'error'
+			appStore.hideLoading()
+			isLogging.value = false
+			appStore.showToast({ message: '登录失败', type: 'error' })
+		})
+}
+
+const handleRegister = () => {
+	if (isLogging.value) return
+	isLogging.value = true
+	appStore.showLoading('Registering...')
+	registerApi({ username: username.value, password: password.value })
+		.then((result) => {
+			const { token, user } = result || {}
+			if (!token || !user) throw new Error('Invalid register response')
+			userStore.login({
+				token,
+				userInfo: {
+					id: user.id || user._id || user.userId || null,
+					nickname: user.nickName || user.nickname || '',
+					avatar: user.avatarUrl || user.avatar || '',
+					username: user.username || username.value
+				}
 			})
-		}
-	})
+			appStore.hideLoading()
+			isLogging.value = false
+			appStore.showToast({ message: '注册并登录成功', type: 'success' })
+			uni.reLaunch({ url: '/pages/profile/index' })
+		})
+		.catch((err) => {
+			console.error('Register failed:', err)
+			appStore.hideLoading()
+			isLogging.value = false
+			appStore.showToast({ message: '注册失败', type: 'error' })
+		})
 }
 </script>
 
@@ -68,6 +115,15 @@ const handleLogin = () => {
 			color: #868E96;
 			margin-bottom: 48rpx;
 		}
+		.text-input {
+			width: 400rpx;
+			height: 72rpx;
+			background: #F8F9FA;
+			border-radius: 12rpx;
+			padding: 0 24rpx;
+			font-size: 28rpx;
+			margin-bottom: 16rpx;
+		}
 
 		.login-btn {
 			width: 400rpx;
@@ -78,6 +134,17 @@ const handleLogin = () => {
 			border-radius: 44rpx;
 			font-size: 32rpx;
 			font-weight: 500;
+		}
+		.register-btn {
+			width: 400rpx;
+			height: 72rpx;
+			background: #F1F3F5;
+			color: #343A40;
+			border: none;
+			border-radius: 36rpx;
+			font-size: 28rpx;
+			font-weight: 500;
+			margin-top: 12rpx;
 		}
 	}
 }

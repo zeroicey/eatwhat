@@ -4,7 +4,6 @@ const cors = require('cors');
 const connectDB = require('./config/database');
 const { initializeBuckets } = require('./config/minio');
 const errorHandler = require('./middlewares/errorHandler');
-const { apiLimiter } = require('./middlewares/rateLimit');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -12,6 +11,7 @@ const storeRoutes = require('./routes/storeRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 const momentRoutes = require('./routes/momentRoutes');
 const storageRoutes = require('./routes/storageRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -20,8 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Apply rate limiting to all API routes
-app.use('/api', apiLimiter);
 
 // Health check
 app.get('/health', (req, res) => {
@@ -34,6 +32,7 @@ app.use('/api/stores', storeRoutes);
 app.use('/api/menus', menuRoutes);
 app.use('/api/moments', momentRoutes);
 app.use('/api/storage', storageRoutes);
+app.use('/api/users', userRoutes);
 
 // 404 handler
 app.use((req, res) => {

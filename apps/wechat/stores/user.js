@@ -40,12 +40,9 @@ export const useUserStore = defineStore('user', {
       return state.isAuthenticated && state.token !== null
     },
 
-    /**
-     * 检查 Token 是否过期（7天）
-     */
     isTokenExpired: (state) => {
       if (!state.loginTime) return true
-      const expiryTime = 7 * 24 * 60 * 60 * 1000 // 7天
+      const expiryTime = 365 * 24 * 60 * 60 * 1000
       return Date.now() - state.loginTime > expiryTime
     }
   },
@@ -60,10 +57,10 @@ export const useUserStore = defineStore('user', {
       this.userInfo = payload.userInfo
       this.loginTime = Date.now()
       this.isAuthenticated = true
-
-      // Token 存储到 SecureStorage（如果可用）
       try {
         uni.setStorageSync('auth_token', payload.token)
+        uni.setStorageSync('auth_login_time', this.loginTime)
+        uni.setStorageSync('user_info', this.userInfo)
       } catch (error) {
         console.error('Failed to store token:', error)
       }
@@ -136,9 +133,15 @@ export const useUserStore = defineStore('user', {
     restoreToken() {
       try {
         const token = uni.getStorageSync('auth_token')
-        if (token && this.userInfo) {
+        const savedUser = uni.getStorageSync('user_info')
+        const savedLoginTime = uni.getStorageSync('auth_login_time')
+        if (token) {
           this.token = token
           this.isAuthenticated = true
+          this.loginTime = savedLoginTime || Date.now()
+          if (savedUser) {
+            this.userInfo = savedUser
+          }
         }
       } catch (error) {
         console.error('Failed to restore token:', error)

@@ -47,6 +47,26 @@ class StoreController {
   }
 
   /**
+   * GET /api/stores/search
+   */
+  async searchStores(req, res, next) {
+    try {
+      const { keyword, page, limit, sortBy, longitude, latitude, maxDistance } = req.query;
+      const result = await storeService.searchStores(keyword || '', {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        sortBy,
+        longitude,
+        latitude,
+        maxDistance: parseInt(maxDistance),
+      });
+      return paginated(res, result.stores, result.pagination, 'Stores search results');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
    * GET /api/stores/:id
    */
   async getStoreById(req, res, next) {

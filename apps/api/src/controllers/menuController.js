@@ -44,6 +44,22 @@ class MenuController {
   }
 
   /**
+   * GET /api/menus/:id
+   */
+  async getMenuItemById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const item = await menuService.getMenuItemById(id);
+      if (!item) {
+        return error(res, 'Menu item not found', 404);
+      }
+      return success(res, item, 'Menu item retrieved');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
    * POST /api/menus/:id/like
    */
   async likeMenuItem(req, res, next) {

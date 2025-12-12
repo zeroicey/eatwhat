@@ -5,6 +5,7 @@ const authMiddleware = require('../middlewares/auth');
 
 // Public routes
 router.get('/', storeController.getStores.bind(storeController));
+router.get('/search', storeController.searchStores.bind(storeController));
 router.get('/:id', storeController.getStoreById.bind(storeController));
 
 // Protected routes
