@@ -163,79 +163,92 @@ async function submitStore() {
 
 <style lang="scss" scoped>
 .create-store-page {
-	padding: 32rpx;
-	display: flex;
-	flex-direction: column;
-	gap: 16rpx;
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 .title {
-	font-size: 36rpx;
-	font-weight: 600;
-	color: #212529;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1e293b;
 }
 .form {
-	display: flex;
-	flex-direction: column;
-	gap: 12rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
 }
 .input {
-	height: 72rpx;
-	background: #F8F9FA;
-	border-radius: 12rpx;
-	padding: 0 24rpx;
-	font-size: 28rpx;
+  height: 72rpx;
+  background: #f3f4f6;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
 }
 .textarea {
-	min-height: 120rpx;
-	background: #F8F9FA;
-	border-radius: 12rpx;
-	padding: 12rpx 24rpx;
-	font-size: 28rpx;
+  min-height: 120rpx;
+  background: #f3f4f6;
+  border-radius: 12rpx;
+  padding: 12rpx 24rpx;
+  font-size: 28rpx;
 }
 .location-row {
-	display: grid;
-	grid-template-columns: 1fr auto;
-	gap: 8rpx;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8rpx;
 }
 .coords {
-	display: flex;
-	gap: 16rpx;
-	font-size: 26rpx;
-	color: #868E96;
+  display: flex;
+  gap: 16rpx;
+  font-size: 26rpx;
+  color: #94a3b8;
 }
 .section {
-	background: #FFFFFF;
-	border-radius: 12rpx;
-	padding: 12rpx;
-	box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 .section-title {
-	font-size: 30rpx;
-	font-weight: 600;
-	color: #212529;
-	margin-bottom: 8rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8rpx;
 }
 .cover {
-	display: flex;
-	align-items: center;
-	gap: 12rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
 }
 .cover-img {
-	width: 200rpx;
-	height: 200rpx;
-	border-radius: 12rpx;
-	background: #F1F3F5;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+  background: #eef2f7;
 }
 .images {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 8rpx;
-	align-items: start;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8rpx;
+  align-items: start;
 }
 .menu-img {
-	width: 100%;
-	height: 200rpx;
-	border-radius: 8rpx;
-	background: #F1F3F5;
+  width: 100%;
+  height: 200rpx;
+  border-radius: 8rpx;
+  background: #eef2f7;
+}
+.btn {
+  height: 64rpx;
+  padding: 0 24rpx;
+  border-radius: 12rpx;
+  background: #f3f4f6;
+  color: #374151;
+  border: 2rpx solid #e5e7eb;
+}
+.btn.primary {
+  background: #6b7280;
+  color: #ffffff;
+  border-color: transparent;
 }
 </style>
