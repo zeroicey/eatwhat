@@ -27,18 +27,7 @@
 
 		<!-- Store List -->
 		<view class="store-section">
-			<view v-if="loading" class="loading-container">
-				<view class="loading-card" v-for="n in 3" :key="n">
-					<view class="loading-image"></view>
-					<view class="loading-content">
-						<view class="loading-title"></view>
-						<view class="loading-desc"></view>
-						<view class="loading-meta"></view>
-					</view>
-				</view>
-			</view>
-
-			<view v-else-if="stores.length > 0" class="store-grid">
+			<view v-if="stores.length > 0" class="store-grid">
 				<view 
 					class="store-card" 
 					v-for="s in stores" 
@@ -95,7 +84,7 @@
 				</view>
 			</view>
 
-			<view v-else class="empty-state">
+			<view v-else-if="!loading" class="empty-state">
 				<view class="empty-icon">
 					<uni-icons type="shop" size="48" color="#d1d5db"></uni-icons>
 				</view>
@@ -292,7 +281,8 @@ function updatedText(s) {
 /* Main Container */
 .discover-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f7f9fc 0%, #fbfcff 100%);
+  background: linear-gradient(180deg, #F7F8FB 0%, #F4F6FA 100%);
+  padding-top: 24rpx;
   padding-bottom: 120rpx;
 }
 
@@ -307,23 +297,22 @@ function updatedText(s) {
   display: flex;
   align-items: center;
   gap: 16rpx;
-  animation: slideInUp 0.6s ease-out 0.2s both;
 }
 
 .search-input-wrapper {
   flex: 1;
   position: relative;
-  background: rgba(255, 255, 255, 0.95);
+  background: #FFFFFF;
   border-radius: var(--radius-xl);
   padding: 0 32rpx 0 80rpx;
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04);
+  border: 1rpx solid #F1F3F5;
   transition: all 0.3s ease;
 }
 
 .search-input-wrapper:focus-within {
   transform: translateY(-2rpx);
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 12rpx 20rpx rgba(0,0,0,0.06);
 }
 
 .search-icon {
@@ -350,7 +339,7 @@ function updatedText(s) {
   transform: translateY(-50%);
   padding: 8rpx;
   border-radius: 50%;
-  background: var(--surface);
+  background: #F7F9FC;
   color: var(--text-muted);
   transition: all 0.2s ease;
 }
@@ -360,7 +349,7 @@ function updatedText(s) {
 }
 
 .search-btn {
-  background: var(--neutral-600);
+  background: #FF6B6B;
   color: #ffffff;
   border: none;
   border-radius: var(--radius-xl);
@@ -409,94 +398,29 @@ function updatedText(s) {
 }
 
 /* Loading State */
-.loading-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24rpx;
-  animation: fadeIn 0.5s ease-out;
-}
-
-.loading-card {
-  display: flex;
-  gap: 24rpx;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius-xl);
-  padding: 24rpx;
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px);
-}
-
-.loading-image {
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-}
-
-.loading-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
-}
-
-.loading-title {
-  height: 36rpx;
-  width: 60%;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-}
-
-.loading-desc {
-  height: 28rpx;
-  width: 80%;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite 0.2s;
-}
-
-.loading-meta {
-  height: 24rpx;
-  width: 40%;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite 0.4s;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
 
 /* Store Grid */
 .store-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24rpx;
-  animation: fadeInUp 0.6s ease-out;
 }
 
 .store-card {
   display: flex;
   gap: 24rpx;
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%);
   border-radius: var(--radius-xl);
   padding: 24rpx;
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04);
+  border: 1rpx solid #F1F3F5;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .store-card:active {
   transform: translateY(4rpx);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
 }
 
 .card-image-container {
@@ -627,12 +551,10 @@ function updatedText(s) {
   justify-content: center;
   padding: 80rpx 32rpx;
   text-align: center;
-  animation: fadeIn 0.8s ease-out;
 }
 
 .empty-icon {
   margin-bottom: 24rpx;
-  animation: bounce 2s infinite;
 }
 
 .empty-title {
@@ -673,7 +595,6 @@ function updatedText(s) {
   display: flex;
   justify-content: center;
   padding: 32rpx 0;
-  animation: fadeIn 0.5s ease-out;
 }
 
 .load-more-btn {
@@ -701,67 +622,23 @@ function updatedText(s) {
   bottom: 40rpx;
   right: 32rpx;
   z-index: 1000;
-  animation: slideInUp 0.6s ease-out 0.6s both;
 }
 
 .fab {
   width: 96rpx;
   height: 96rpx;
-  background: var(--neutral-600);
+  background: #FF6B6B;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(107, 114, 128, 0.35);
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.35);
   transition: all 0.3s ease;
 }
 
 .fab:active {
   transform: scale(0.95);
   box-shadow: 0 5px 15px rgba(107, 114, 128, 0.3);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30rpx);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(60rpx);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  40%, 43% {
-    transform: translate3d(0, -10rpx, 0);
-  }
-  70% {
-    transform: translate3d(0, -5rpx, 0);
-  }
-  90% {
-    transform: translate3d(0, -2rpx, 0);
-  }
 }
 
 /* Responsive Design */

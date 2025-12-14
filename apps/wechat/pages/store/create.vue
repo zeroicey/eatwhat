@@ -1,12 +1,16 @@
 <template>
 	<view class="create-store-page">
-		<text class="title"><uni-icons type="home" size="22"></uni-icons> 创建店铺</text>
+		<view class="page-header">
+			<uni-icons type="shop" size="22" color="#FF6B6B"></uni-icons>
+			<text class="title">创建店铺</text>
+		</view>
+		<view class="form-card">
 		<view class="form">
 			<input class="input" type="text" v-model="name" placeholder="店铺名称（必填）" />
 			<textarea class="textarea" v-model="description" placeholder="店铺简介（选填）" auto-height />
 			<view class="location-row">
 				<input class="input" type="text" v-model="address" placeholder="地址（选填）" />
-				<button class="btn" @click="chooseLocation"><uni-icons type="location" size="22"></uni-icons> 选择位置</button>
+				<button class="btn outline" @click="chooseLocation"><uni-icons type="location" size="22"></uni-icons> 选择位置</button>
 			</view>
 			<view class="coords">
 				<text class="coord">经度：{{ longitude ?? '—' }}</text>
@@ -27,6 +31,7 @@
 				</view>
 			</view>
 			<button class="btn primary" :disabled="submitting" @click="submitStore"><uni-icons type="checkmarkempty" size="22"></uni-icons> 提交创建</button>
+		</view>
 		</view>
 	</view>
 </template>
@@ -162,35 +167,24 @@ async function submitStore() {
 </script>
 
 <style lang="scss" scoped>
-.create-store-page {
-  padding: 32rpx;
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
-}
+.create-store-page { padding: 32rpx; display: flex; flex-direction: column; gap: 16rpx; min-height: 100vh; background: linear-gradient(180deg, #F7F8FB 0%, #F4F6FA 100%); }
+.page-header { display: flex; align-items: center; gap: 8rpx; }
 .title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #1e293b;
+  color: #212529;
 }
+.form-card { background: #FFFFFF; border: 1rpx solid #F1F3F5; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04); }
 .form {
   display: flex;
   flex-direction: column;
   gap: 12rpx;
 }
 .input {
-  height: 72rpx;
-  background: #f3f4f6;
-  border-radius: 12rpx;
-  padding: 0 24rpx;
-  font-size: 28rpx;
+  height: 72rpx; background: #FFFFFF; border: 1rpx solid #F1F3F5; border-radius: 12rpx; padding: 0 24rpx; font-size: 28rpx; color: #212529;
 }
 .textarea {
-  min-height: 120rpx;
-  background: #f3f4f6;
-  border-radius: 12rpx;
-  padding: 12rpx 24rpx;
-  font-size: 28rpx;
+  min-height: 180rpx; background: #FFFFFF; border: 1rpx solid #F1F3F5; border-radius: 12rpx; padding: 12rpx 24rpx; font-size: 28rpx; color: #212529;
 }
 .location-row {
   display: grid;
@@ -201,18 +195,19 @@ async function submitStore() {
   display: flex;
   gap: 16rpx;
   font-size: 26rpx;
-  color: #94a3b8;
+  color: #868E96;
 }
 .section {
-  background: #ffffff;
-  border-radius: 12rpx;
-  padding: 12rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%);
+  border-radius: 16rpx;
+  padding: 16rpx;
+  border: 1rpx solid #F1F3F5;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04);
 }
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1e293b;
+  color: #212529;
   margin-bottom: 8rpx;
 }
 .cover {
@@ -224,7 +219,8 @@ async function submitStore() {
   width: 200rpx;
   height: 200rpx;
   border-radius: 12rpx;
-  background: #eef2f7;
+  background: #F1F3F5;
+  border: 1rpx solid #E9ECEF;
 }
 .images {
   display: grid;
@@ -232,23 +228,32 @@ async function submitStore() {
   gap: 8rpx;
   align-items: start;
 }
+.images .btn { grid-column: 1 / -1; width: 100%; }
 .menu-img {
   width: 100%;
   height: 200rpx;
-  border-radius: 8rpx;
-  background: #eef2f7;
+  border-radius: 12rpx;
+  background: #F1F3F5;
+  border: 1rpx solid #E9ECEF;
 }
 .btn {
   height: 64rpx;
   padding: 0 24rpx;
   border-radius: 12rpx;
-  background: #f3f4f6;
-  color: #374151;
-  border: 2rpx solid #e5e7eb;
+  background: #FFFFFF;
+  color: #212529;
+  border: 1rpx solid #F1F3F5;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
 }
+.btn.outline { background: #F7F9FC; color: #495057; border-color: #E9ECEF; }
 .btn.primary {
-  background: #6b7280;
-  color: #ffffff;
-  border-color: transparent;
+  background: #FF6B6B;
+  color: #FFFFFF;
+  border-color: #FF6B6B;
+  box-shadow: 0 8rpx 20rpx rgba(255, 107, 107, 0.35);
 }
 </style>
