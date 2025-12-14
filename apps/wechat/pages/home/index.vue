@@ -1,11 +1,7 @@
 <template>
 	<view class="home-page">
 		<view class="hero">
-			<image class="hero-logo" src="/static/logo.png" mode="aspectFill" />
-			<view class="hero-info">
-				<text class="title">吃什么</text>
-				<text class="subtitle">众包美食地图 · 拼单带饭</text>
-			</view>
+			<image class="hero-banner" src="/static/images/hero.png" mode="aspectFill" />
 		</view>
 
 		<view class="section">
@@ -175,9 +171,8 @@ function displayName(item) {
 
 <style lang="scss" scoped>
 .home-page { display: flex; flex-direction: column; gap: 24rpx; padding: 32rpx; min-height: 100vh; background: linear-gradient(180deg, #F7F8FB 0%, #F4F6FA 100%); }
-.hero { display: flex; align-items: center; gap: 16rpx; background: linear-gradient(180deg, #FFFFFF 0%, #FFF9F2 100%); border: 1rpx solid #F1F3F5; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04); }
-.hero-logo { width: 120rpx; height: 120rpx; border-radius: 16rpx; background: #F1F3F5; }
-.hero-info { display: flex; flex-direction: column; gap: 8rpx; }
+.hero { padding: 0; background: transparent; border: none; box-shadow: none; }
+.hero-banner { width: 100%; height: 260rpx; border-radius: 16rpx; }
 .title { font-size: 40rpx; font-weight: 700; color: #212529; }
 .subtitle { font-size: 26rpx; color: #868E96; }
 .section { display: flex; flex-direction: column; gap: 12rpx; }

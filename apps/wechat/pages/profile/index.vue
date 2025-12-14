@@ -34,8 +34,7 @@
 			</view>
 			<view class="actions">
 				<view class="chip-btn" @click="goContributions">我的贡献</view>
-				<view class="chip-btn" @click="goSettings">资料设置</view>
-				<view class="cta-btn" @click="handleLogout">退出登录</view>
+				<view class="chip-btn" @click="goSettings">账号设置</view>
 			</view>
 		</view>
 	</view>
@@ -45,11 +44,9 @@
 import { computed, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores/user'
-import { useAppStore } from '@/stores/app'
 import { getMe, getMyStores, getMyMenuItems } from '@/api/user'
 
 const userStore = useUserStore()
-const appStore = useAppStore()
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const userNickname = computed(() => userStore.nickname)
@@ -101,10 +98,6 @@ function goSettings() {
 	uni.navigateTo({ url: '/pages/profile/settings' })
 }
 
-function handleLogout() {
-	userStore.logout()
-	appStore.showToast({ message: '已退出登录', type: 'success' })
-}
 </script>
 
 <style lang="scss" scoped>

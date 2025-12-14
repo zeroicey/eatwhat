@@ -1,7 +1,7 @@
 <template>
 	<view class="settings-page">
 		<view class="card">
-			<text class="card-title">资料设置</text>
+			<text class="card-title">账号设置</text>
 			<view class="form-item">
 				<text class="label">头像</text>
 				<view class="avatar-row">
@@ -16,6 +16,9 @@
 			</view>
 			<view class="actions">
 				<button class="btn primary block" :disabled="!canSave" @click="saveProfile">保存</button>
+			</view>
+			<view class="actions">
+				<button class="btn danger block" @click="handleLogout">退出登录</button>
 			</view>
 		</view>
 	</view>
@@ -101,6 +104,11 @@ async function saveProfile() {
 		appStore.showToast({ message: '资料保存失败', type: 'error' })
 	}
 }
+
+function handleLogout() {
+	userStore.logout()
+	appStore.showToast({ message: '已退出登录', type: 'success' })
+}
 </script>
 	
 	<style lang="scss" scoped>
@@ -161,7 +169,12 @@ async function saveProfile() {
 		color: #343A40;
 	}
 .btn.primary {
-		background: #FF6B6B;
-		color: #FFFFFF;
-	}
+	background: #FF6B6B;
+	color: #FFFFFF;
+}
+.btn.danger {
+	background: #FFF5F5;
+	color: #E03131;
+	border: 2rpx solid #ffe3e3;
+}
 	</style>
