@@ -15,21 +15,21 @@
             </view>
 			<view class="actions-grid">
                 <view class="action-card" @click="goDiscover">
-                    <view class="icon"><uni-icons type="search" size="28"></uni-icons></view>
+                    <view class="icon"><image class="icon-svg" src="/static/discover.svg" mode="widthFix" /></view>
                     <text class="label">发现好店</text>
                 </view>
-				<view class="action-card" @click="goCart">
-					<view class="icon"><uni-icons type="cart" size="28"></uni-icons></view>
-					<text class="label">我的清单</text>
-				</view>
-				<view class="action-card" @click="goPublishMoment">
-					<view class="icon"><uni-icons type="paperplane" size="28"></uni-icons></view>
-					<text class="label">发布动态</text>
-				</view>
-				<view class="action-card" @click="goDigitize">
-					<view class="icon"><uni-icons type="compose" size="28"></uni-icons></view>
-					<text class="label">菜单数字化</text>
-				</view>
+                <view class="action-card" @click="goCart">
+                    <view class="icon"><image class="icon-svg" src="/static/cart.svg" mode="widthFix" /></view>
+                    <text class="label">我的清单</text>
+                </view>
+                <view class="action-card" @click="goPublishMoment">
+                    <view class="icon icon-publish"><image class="icon-svg icon-svg-publish" src="/static/publish.svg" mode="widthFix" /></view>
+                    <text class="label">发布动态</text>
+                </view>
+                <view class="action-card" @click="goDigitize">
+                    <view class="icon"><image class="icon-svg" src="/static/menu-digitize.svg" mode="widthFix" /></view>
+                    <text class="label">菜单数字化</text>
+                </view>
 			</view>
 		</view>
 
@@ -50,6 +50,10 @@
                         <image v-if="item.images && item.images.length" class="cover" :src="item.images[0]" mode="widthFix" />
                         <view class="moment-content">
                             <text class="content-text ellipsis-2">{{ displayContent(item) }}</text>
+                        </view>
+                        <view v-if="item.storeId && item.storeId.name" class="store-info" @click.stop="goStoreDetail(item.storeId._id)">
+                            <uni-icons type="shop" size="14" color="#868E96"></uni-icons>
+                            <text class="store-name ellipsis">{{ item.storeId.name }}</text>
                         </view>
                         <view class="row-bottom">
                             <view class="user">
@@ -128,6 +132,7 @@ function goCart() { uni.switchTab({ url: '/pages/cart/index' }) }
 function goPublishMoment() { uni.navigateTo({ url: '/pages/moment/publish' }) }
 function goDigitize() { uni.navigateTo({ url: '/pages/menu/digitize' }) }
 function goMomentDetail(id) { uni.navigateTo({ url: `/pages/moment/detail?id=${id}` }) }
+function goStoreDetail(id) { uni.navigateTo({ url: `/pages/store/detail?id=${id}` }) }
 
 onLoad(() => {
   page.value = 1
@@ -167,7 +172,7 @@ function displayName(item) {
 </script>
 
 <style lang="scss" scoped>
-.home-page { display: flex; flex-direction: column; gap: 24rpx; padding: 32rpx; }
+.home-page { display: flex; flex-direction: column; gap: 24rpx; padding: 32rpx; min-height: 100vh; background: #f8f9fa91; }
 .hero { display: flex; align-items: center; gap: 16rpx; background: #FFFFFF; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); }
 .hero-logo { width: 120rpx; height: 120rpx; border-radius: 16rpx; background: #F1F3F5; }
 .hero-info { display: flex; flex-direction: column; gap: 8rpx; }
@@ -177,25 +182,30 @@ function displayName(item) {
 .section-title { font-size: 32rpx; font-weight: 600; color: #212529; }
 .section-title-row { display: flex; align-items: center; gap: 8rpx; }
 .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16rpx; }
-.action-card { background: #FFFFFF; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12rpx; }
-.icon { width: 56rpx; height: 56rpx; border-radius: 12rpx; background: #FFF5F5; color: #FF6B6B; display: flex; align-items: center; justify-content: center; }
+.action-card { background: #FFFFFF; border-radius: 16rpx; padding: 16rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12rpx; }
+.icon { width: 72rpx; height: 72rpx; border-radius: 0; background: transparent; display: flex; align-items: center; justify-content: center; }
+.icon-svg { width: 48rpx; height: 48rpx; }
+.icon-publish { width: 84rpx; height: 84rpx; }
+.icon-svg-publish { width: 56rpx; height: 56rpx; }
 .label { font-size: 28rpx; color: #212529; font-weight: 600; }
 .placeholder-card { background: #FFFFFF; border-radius: 16rpx; padding: 32rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; }
 .placeholder-text { font-size: 26rpx; color: #868E96; }
 
 /* 动态列表 */
 .feed-list { column-count: 2; column-gap: 12rpx; }
-.moment-card { break-inside: avoid; margin-bottom: 12rpx; background: #FFFFFF; border-radius: 16rpx; padding: 16rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 12rpx; overflow: hidden; }
-.cover { width: 100%; background: #F1F3F5; border-radius: 12rpx; }
+.moment-card { break-inside: avoid; margin-bottom: 16rpx; background: #FFFFFF; border-radius: 0; padding: 0; box-shadow: none; display: flex; flex-direction: column; gap: 8rpx; overflow: hidden; }
+.cover { width: 100%; background: #F1F3F5; border-top-left-radius: 12rpx; border-top-right-radius: 12rpx; }
 .moment-header { display: flex; align-items: center; gap: 12rpx; }
-.avatar { width: 64rpx; height: 64rpx; border-radius: 50%; background: #F1F3F5; }
+.avatar { width: 48rpx; height: 48rpx; border-radius: 50%; background: #F1F3F5; }
 .header-info { display: flex; flex-direction: column; }
 .nickname { font-size: 28rpx; font-weight: 600; color: #212529; }
 .time { font-size: 24rpx; color: #ADB5BD; }
-.moment-content { display: flex; flex-direction: column; gap: 12rpx; }
+.moment-content { display: flex; flex-direction: column; gap: 12rpx; padding: 8rpx 12rpx; }
 .content-text { font-size: 28rpx; color: #343A40; line-height: 1.6; }
 .ellipsis-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.row-bottom { display: flex; align-items: center; justify-content: space-between; }
+.store-info { display: flex; align-items: center; gap: 8rpx; background-color: transparent; padding: 8rpx 12rpx; border-radius: 0; }
+.store-name { font-size: 24rpx; color: #495057; }
+.row-bottom { display: flex; align-items: center; justify-content: space-between; padding: 8rpx 12rpx; }
 .user { display: flex; align-items: center; gap: 8rpx; }
 .like { display: flex; align-items: center; gap: 6rpx; color: #495057; }
 .count { font-size: 24rpx; color: #495057; }
