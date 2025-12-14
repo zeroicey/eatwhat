@@ -10,24 +10,25 @@
 
 		<view class="section">
             <view class="section-title-row">
-                <uni-icons type="list" size="20"></uni-icons>
+                <image class="section-icon" src="/static/icons/list.svg" mode="aspectFit" />
                 <text class="section-title">快捷入口</text>
+                <text class="section-desc">常用功能快捷访问</text>
             </view>
 			<view class="actions-grid">
                 <view class="action-card" @click="goDiscover">
-                    <view class="icon"><image class="icon-svg" src="/static/discover.svg" mode="widthFix" /></view>
+                    <view class="icon"><image class="icon-svg" src="/static/icons/discover.svg" mode="widthFix" /></view>
                     <text class="label">发现好店</text>
                 </view>
                 <view class="action-card" @click="goCart">
-                    <view class="icon"><image class="icon-svg" src="/static/cart.svg" mode="widthFix" /></view>
+                    <view class="icon"><image class="icon-svg" src="/static/icons/cart.svg" mode="widthFix" /></view>
                     <text class="label">我的清单</text>
                 </view>
                 <view class="action-card" @click="goPublishMoment">
-                    <view class="icon icon-publish"><image class="icon-svg icon-svg-publish" src="/static/publish.svg" mode="widthFix" /></view>
+                    <view class="icon icon-publish"><image class="icon-svg icon-svg-publish" src="/static/icons/publish.svg" mode="widthFix" /></view>
                     <text class="label">发布动态</text>
                 </view>
                 <view class="action-card" @click="goDigitize">
-                    <view class="icon"><image class="icon-svg" src="/static/menu-digitize.svg" mode="widthFix" /></view>
+                    <view class="icon"><image class="icon-svg" src="/static/icons/menu-digitize.svg" mode="widthFix" /></view>
                     <text class="label">菜单数字化</text>
                 </view>
 			</view>
@@ -35,8 +36,9 @@
 
 		<view class="section">
 			<view class="section-title-row">
-				<uni-icons type="chat" size="20"></uni-icons>
+				<image class="section-icon" src="/static/icons/chat.svg" mode="aspectFit" />
 				<text class="section-title">动态圈子</text>
+                <text class="section-desc">看看大家在吃啥</text>
 			</view>
 			<view v-if="initialLoading" class="placeholder-card">
 				<text class="placeholder-text">加载中...</text>
@@ -52,7 +54,7 @@
                             <text class="content-text ellipsis-2">{{ displayContent(item) }}</text>
                         </view>
                         <view v-if="item.storeId && item.storeId.name" class="store-info" @click.stop="goStoreDetail(item.storeId._id)">
-                            <uni-icons type="shop" size="14" color="#868E96"></uni-icons>
+                            <image class="store-icon" src="/static/icons/location.svg" mode="aspectFit" />
                             <text class="store-name ellipsis">{{ item.storeId.name }}</text>
                         </view>
                         <view class="row-bottom">
@@ -172,8 +174,8 @@ function displayName(item) {
 </script>
 
 <style lang="scss" scoped>
-.home-page { display: flex; flex-direction: column; gap: 24rpx; padding: 32rpx; min-height: 100vh; background: #f8f9fa91; }
-.hero { display: flex; align-items: center; gap: 16rpx; background: #FFFFFF; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); }
+.home-page { display: flex; flex-direction: column; gap: 24rpx; padding: 32rpx; min-height: 100vh; background: linear-gradient(180deg, #F7F8FB 0%, #F4F6FA 100%); }
+.hero { display: flex; align-items: center; gap: 16rpx; background: linear-gradient(180deg, #FFFFFF 0%, #FFF9F2 100%); border: 1rpx solid #F1F3F5; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04); }
 .hero-logo { width: 120rpx; height: 120rpx; border-radius: 16rpx; background: #F1F3F5; }
 .hero-info { display: flex; flex-direction: column; gap: 8rpx; }
 .title { font-size: 40rpx; font-weight: 700; color: #212529; }
@@ -181,9 +183,11 @@ function displayName(item) {
 .section { display: flex; flex-direction: column; gap: 12rpx; }
 .section-title { font-size: 32rpx; font-weight: 600; color: #212529; }
 .section-title-row { display: flex; align-items: center; gap: 8rpx; }
+.section-icon { width: 48rpx; height: 48rpx; }
+.section-desc { margin-left: auto; font-size: 24rpx; color: #868E96; }
 .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16rpx; }
-.action-card { background: #FFFFFF; border-radius: 16rpx; padding: 16rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12rpx; }
-.icon { width: 72rpx; height: 72rpx; border-radius: 0; background: transparent; display: flex; align-items: center; justify-content: center; }
+.action-card { background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%); border: 1rpx solid #F1F3F5; border-radius: 16rpx; padding: 16rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.04); display: flex; align-items: center; gap: 12rpx; }
+.icon { width: 72rpx; height: 72rpx; border-radius: 12rpx; background: #FFF5F5; display: flex; align-items: center; justify-content: center; }
 .icon-svg { width: 48rpx; height: 48rpx; }
 .icon-publish { width: 84rpx; height: 84rpx; }
 .icon-svg-publish { width: 56rpx; height: 56rpx; }
@@ -193,7 +197,7 @@ function displayName(item) {
 
 /* 动态列表 */
 .feed-list { column-count: 2; column-gap: 12rpx; }
-.moment-card { break-inside: avoid; margin-bottom: 16rpx; background: #FFFFFF; border-radius: 0; padding: 0; box-shadow: none; display: flex; flex-direction: column; gap: 8rpx; overflow: hidden; }
+.moment-card { break-inside: avoid; margin-bottom: 16rpx; background: #FFFFFF; border: 1rpx solid #F1F3F5; border-radius: 12rpx; padding: 0; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 8rpx; overflow: hidden; }
 .cover { width: 100%; background: #F1F3F5; border-top-left-radius: 12rpx; border-top-right-radius: 12rpx; }
 .moment-header { display: flex; align-items: center; gap: 12rpx; }
 .avatar { width: 48rpx; height: 48rpx; border-radius: 50%; background: #F1F3F5; }
@@ -204,6 +208,7 @@ function displayName(item) {
 .content-text { font-size: 28rpx; color: #343A40; line-height: 1.6; }
 .ellipsis-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .store-info { display: flex; align-items: center; gap: 8rpx; background-color: transparent; padding: 8rpx 12rpx; border-radius: 0; }
+.store-icon { width: 36rpx; height: 36rpx; }
 .store-name { font-size: 24rpx; color: #495057; }
 .row-bottom { display: flex; align-items: center; justify-content: space-between; padding: 8rpx 12rpx; }
 .user { display: flex; align-items: center; gap: 8rpx; }
