@@ -62,12 +62,7 @@
                             </view>
                         </view>
                     </view>
-                <view class="list-status" v-if="listLoading">
-                    <text class="status-text">加载更多...</text>
-                </view>
-                <view class="list-status" v-else-if="noMore">
-                    <text class="status-text">没有更多了</text>
-                </view>
+                
             </view>
         </view>
     </view>
@@ -204,6 +199,4 @@ function displayName(item) {
 .user { display: flex; align-items: center; gap: 8rpx; }
 .like { display: flex; align-items: center; gap: 6rpx; color: #495057; }
 .count { font-size: 24rpx; color: #495057; }
-.list-status { padding: 16rpx; display: flex; align-items: center; justify-content: center; }
-.status-text { font-size: 24rpx; color: #ADB5BD; }
 </style>
