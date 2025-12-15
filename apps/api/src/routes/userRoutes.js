@@ -7,6 +7,7 @@ router.get('/me', auth, userController.me.bind(userController));
 router.put('/profile', auth, userController.updateProfile.bind(userController));
 router.get('/me/contributions/stores', auth, userController.myStores.bind(userController));
 router.get('/me/contributions/menu-items', auth, userController.myMenuItems.bind(userController));
+router.get('/me/moments', auth, userController.myMoments.bind(userController));
 
 module.exports = router;
 

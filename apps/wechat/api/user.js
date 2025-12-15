@@ -16,3 +16,7 @@ export function getMyMenuItems(params = {}) {
   return get('/users/me/contributions/menu-items', params)
 }
 
+export function getMyMoments(params = {}) {
+  return get('/users/me/moments', params)
+}
+
