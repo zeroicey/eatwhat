@@ -1,5 +1,22 @@
 <template>
 	<view class="digitize-menu-page">
+		<view v-if="bannerImages.length > 0" class="banner">
+			<swiper 
+				class="banner-swiper" 
+				indicator-dots 
+				:circular="true" 
+				:autoplay="false" 
+				:current="currentBanner"
+				@change="onBannerChange"
+			>
+				<swiper-item v-for="(img, idx) in bannerImages" :key="idx">
+					<image :src="img" class="banner-img" mode="aspectFill" @click="previewBanner(idx)" />
+				</swiper-item>
+			</swiper>
+		</view>
+		<view v-else-if="bannerImage" class="banner">
+			<image :src="bannerImage" class="banner-img" mode="aspectFill" @click="previewBanner(0)" />
+		</view>
 		<text class="title"><uni-icons type="compose" size="22"></uni-icons> 菜单数字化</text>
 		<view class="form">
 			<input class="input" type="text" v-model="name" placeholder="菜名" />
@@ -35,6 +52,8 @@
 import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useAppStore } from '@/stores/app'
+import { getStoreDetail } from '@/api/store'
+import { previewImage } from '@/utils/helpers'
 import { getMenuItems, digitizeMenu, likeMenuItem, reportMenuItem } from '@/api/menu'
 
 const appStore = useAppStore()
@@ -48,11 +67,43 @@ const limit = ref(20)
 const total = ref(0)
 const loading = ref(false)
 const hasMore = ref(false)
+const storeInfo = ref(null)
+const bannerImage = ref('')
+const bannerImages = ref([])
+const currentBanner = ref(0)
 
-onLoad((options) => {
+onLoad(async (options) => {
 	storeId.value = options?.storeId || ''
+	if (storeId.value) {
+		try {
+			const detail = await getStoreDetail(storeId.value)
+			storeInfo.value = detail
+			const imgs = Array.isArray(detail?.menuImages) ? detail.menuImages : []
+			if (imgs.length > 0) {
+				bannerImages.value = imgs
+				bannerImage.value = imgs[0]
+			} else if (detail?.coverImage) {
+				bannerImage.value = detail.coverImage
+				bannerImages.value = [detail.coverImage]
+			} else {
+				bannerImage.value = ''
+				bannerImages.value = []
+			}
+		} catch (e) {
+			console.error('Load store detail failed:', e)
+		}
+	}
 	loadList(true)
 })
+
+function onBannerChange(e) {
+	currentBanner.value = e?.detail?.current || 0
+}
+
+function previewBanner(idx = 0) {
+	if (bannerImages.value.length === 0) return
+	previewImage(bannerImages.value, idx)
+}
 
 function validate() {
 	if (!storeId.value) {
@@ -155,6 +206,21 @@ function goDetail(m) {
   display: flex;
   flex-direction: column;
   gap: 16rpx;
+}
+.banner {
+  width: 100%;
+  height: 280rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #eef2f7;
+}
+.banner-swiper {
+  width: 100%;
+  height: 100%;
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
 }
 .title {
   font-size: 40rpx;

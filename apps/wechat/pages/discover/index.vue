@@ -34,20 +34,19 @@
 					:key="s._id" 
 					@click="goDetail(s)"
 				>
-					<view class="card-image-container">
+					<view class="card-cover-container">
 						<image 
-							class="card-image" 
+							class="card-cover" 
 							:src="getCover(s)" 
 							mode="aspectFill"
 							lazy-load
 						/>
-						<view class="image-overlay">
+						<view class="cover-overlay">
 							<view class="store-badge" v-if="isNewStore(s)">
 								<text class="badge-text">新店</text>
 							</view>
 						</view>
 					</view>
-					
 					<view class="card-content">
 						<view class="store-header">
 							<text class="store-name">{{ s.name }}</text>
@@ -56,9 +55,7 @@
 								<text class="rating-text">{{ s.rating }}</text>
 							</view>
 						</view>
-						
 						<text class="store-desc">{{ s.description || '暂无描述' }}</text>
-						
 						<view class="store-meta">
 							<view class="meta-item" v-if="s.creator">
 								<image 
@@ -69,12 +66,10 @@
 								/>
 								<text class="creator-name">{{ s.creator.nickName || '匿名用户' }}</text>
 							</view>
-							
 							<view class="meta-item location" v-if="longitude && latitude && s.location && s.location.coordinates">
 								<uni-icons type="location" size="14" color="#6b7280"></uni-icons>
 								<text class="meta-text">{{ distanceText(s) }}</text>
 							</view>
-							
 							<view class="meta-item time">
 								<uni-icons type="time" size="14" color="#6b7280"></uni-icons>
 								<text class="meta-text">{{ updatedText(s) }}</text>
@@ -407,8 +402,6 @@ function updatedText(s) {
 }
 
 .store-card {
-  display: flex;
-  gap: 24rpx;
   background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%);
   border-radius: var(--radius-xl);
   padding: 24rpx;
@@ -423,29 +416,25 @@ function updatedText(s) {
   box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
 }
 
-.card-image-container {
+.card-cover-container {
   position: relative;
-  flex-shrink: 0;
-}
-
-.card-image {
-  width: 160rpx;
-  height: 160rpx;
+  margin-bottom: 16rpx;
   border-radius: var(--radius-lg);
-  object-fit: cover;
-  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
-
-.image-overlay {
+.card-cover {
+  width: 100%;
+  height: 280rpx;
+  object-fit: cover;
+}
+.cover-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: var(--radius-lg);
   pointer-events: none;
 }
-
 .store-badge {
   position: absolute;
   top: 8rpx;
@@ -454,12 +443,13 @@ function updatedText(s) {
   padding: 4rpx 12rpx;
   border-radius: var(--radius-sm);
 }
-
 .badge-text {
   font-size: 20rpx;
   color: white;
   font-weight: 600;
 }
+
+/* image column removed to腾出空间 */
 
 .card-content {
   flex: 1;

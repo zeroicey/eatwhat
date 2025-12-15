@@ -18,7 +18,10 @@
 			<view class="header-row">
 				<text class="section-title"><uni-icons type="list" size="22"></uni-icons> 电子菜单</text>
 				<view class="header-actions">
-					<button class="btn" @click="goDigitize"><uni-icons type="plus" size="22"></uni-icons> 录入菜品</button>
+					<view class="pill-btn primary" @click="goDigitize">
+						<uni-icons type="paperplane" size="20" color="#ffffff"></uni-icons>
+						<text>录入菜品</text>
+					</view>
 				</view>
 			</view>
 			<view class="list">
@@ -30,13 +33,24 @@
 					<view class="row2">
 						<text class="status" v-if="m.status === 'pending'">待确认</text>
 						<view class="actions">
-							<button class="btn small" @click="handleLike(m)">👍 {{ m.likeCount || 0 }}</button>
-							<button class="btn small danger" @click="handleReport(m)">⚠️ {{ m.reportCount || 0 }}</button>
-							<button class="btn small" @click="goItemDetail(m)">详情</button>
+							<view class="icon-btn" @click="handleLike(m)">
+								<uni-icons type="heart" size="20" color="#ef4444"></uni-icons>
+								<text class="count">{{ m.likeCount || 0 }}</text>
+							</view>
+							<view class="report-badge" @click="handleReport(m)">
+								<text class="number">{{ m.reportCount || 0 }}</text>
+							</view>
+							<view class="pill-btn sm" @click="goItemDetail(m)">
+								<uni-icons type="info" size="16"></uni-icons>
+								<text>详情</text>
+							</view>
 						</view>
 					</view>
 				</view>
-				<button v-if="hasMore && !loading" class="btn" @click="loadMore"><uni-icons type="more" size="22"></uni-icons> 加载更多</button>
+				<view v-if="hasMore && !loading" class="pill-btn outline" @click="loadMore">
+					<text>加载更多</text>
+					<uni-icons type="arrow-down" size="16"></uni-icons>
+				</view>
 				<text v-if="loading" class="loading">加载中...</text>
 				<text v-if="!loading && items.length === 0" class="empty">暂无电子菜单</text>
 			</view>
@@ -196,7 +210,7 @@ function goItemDetail(m) {
 }
 .header-actions {
   display: flex;
-  gap: 8rpx;
+  gap: 12rpx;
 }
 .images {
   display: grid;
@@ -212,6 +226,66 @@ function goItemDetail(m) {
 .empty {
   font-size: 26rpx;
   color: #94a3b8;
+}
+.pill-btn {
+  height: 64rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+  background: #f1f5f9;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  border: 2rpx solid #e2e8f0;
+}
+.pill-btn.sm {
+  height: 48rpx;
+  padding: 0 16rpx;
+  font-size: 26rpx;
+  gap: 6rpx;
+}
+.pill-btn.primary {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: transparent;
+}
+.pill-btn.outline {
+  background: #ffffff;
+  color: #334155;
+}
+.icon-btn {
+  height: 48rpx;
+  padding: 0 16rpx;
+  border-radius: 999rpx;
+  background: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  border: 2rpx solid #e2e8f0;
+}
+.icon-btn .count {
+  font-size: 24rpx;
+  color: #64748b;
+}
+.icon-btn.danger {
+  background: #fff5f5;
+  border-color: #ffe3e3;
+}
+.report-badge {
+  height: 48rpx;
+  min-width: 48rpx;
+  padding: 0 16rpx;
+  border-radius: 999rpx;
+  background: #fff5f5;
+  border: 2rpx solid #ffe3e3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.report-badge .number {
+  font-size: 24rpx;
+  color: #ef4444;
+  font-weight: 600;
 }
 .list {
   display: flex;
