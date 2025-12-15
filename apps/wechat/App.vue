@@ -2,10 +2,12 @@
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { useCartStore } from '@/stores/cart'
 import { getMe } from '@/api/user'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
+const cartStore = useCartStore()
 
 onLaunch(() => {
   console.log('App Launch')
@@ -18,6 +20,7 @@ onLaunch(() => {
   
   // 恢复用户 Token
   userStore.restoreToken()
+  cartStore.restoreCart()
   
   // 检查认证状态
   if (!userStore.checkAuth()) {

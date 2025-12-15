@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { STORAGE_KEYS } from '@/utils/constants'
+import { setStorage, getStorage } from '@/utils/storage'
 
 /**
  * Cart Store - 购物车状态管理
@@ -103,6 +105,7 @@ export const useCartStore = defineStore('cart', {
       }
 
       this.lastUpdated = Date.now()
+      this.saveCart()
     },
 
     /**
@@ -123,6 +126,7 @@ export const useCartStore = defineStore('cart', {
       }
 
       this.lastUpdated = Date.now()
+      this.saveCart()
     },
 
     /**
@@ -142,6 +146,7 @@ export const useCartStore = defineStore('cart', {
         } else {
           item.quantity = quantity
           this.lastUpdated = Date.now()
+          this.saveCart()
         }
       }
     },
@@ -159,6 +164,7 @@ export const useCartStore = defineStore('cart', {
       if (item) {
         item.note = note
         this.lastUpdated = Date.now()
+        this.saveCart()
       }
     },
 
@@ -168,6 +174,7 @@ export const useCartStore = defineStore('cart', {
     clearCart() {
       this.items = {}
       this.lastUpdated = Date.now()
+      this.saveCart()
     },
 
     /**
@@ -177,6 +184,7 @@ export const useCartStore = defineStore('cart', {
     clearStore(storeId) {
       delete this.items[storeId]
       this.lastUpdated = Date.now()
+      this.saveCart()
     },
 
     /**
@@ -186,10 +194,25 @@ export const useCartStore = defineStore('cart', {
      */
     getStoreItems(storeId) {
       return this.items[storeId]?.items || []
+    },
+
+    restoreCart() {
+      const saved = getStorage(STORAGE_KEYS.CART, null)
+      if (saved && typeof saved === 'object') {
+        this.items = saved.items || {}
+        this.lastUpdated = saved.lastUpdated || null
+      }
+    },
+
+    saveCart() {
+      setStorage(STORAGE_KEYS.CART, {
+        items: this.items,
+        lastUpdated: this.lastUpdated
+      })
     }
   },
 
   // 持久化配置 - 使用 UniApp 本地存储
   // 注意：需要在 store 初始化时手动恢复状态
-  persist: false  // 暂时关闭自动持久化，使用手动方式
+  persist: false
 })
