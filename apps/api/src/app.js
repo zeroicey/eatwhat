@@ -12,6 +12,7 @@ const menuRoutes = require('./routes/menuRoutes');
 const momentRoutes = require('./routes/momentRoutes');
 const storageRoutes = require('./routes/storageRoutes');
 const userRoutes = require('./routes/userRoutes');
+const toolsRoutes = require('./routes/toolsRoutes');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/menus', menuRoutes);
 app.use('/api/moments', momentRoutes);
 app.use('/api/storage', storageRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/tools', toolsRoutes);
 
 // 404 handler
 app.use((req, res) => {
