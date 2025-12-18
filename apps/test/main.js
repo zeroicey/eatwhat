@@ -47,6 +47,33 @@ function buildMock() {
       menuImages: [],
       location: { type: 'Point', coordinates: [108.97, 34.22], address: '东门外步行街' },
       creator: user._id
+    },
+    {
+      _id: makeId(),
+      name: '拌饭社',
+      description: '韩式拌饭与石锅拌饭',
+      coverImage: '',
+      menuImages: [],
+      location: { type: 'Point', coordinates: [108.98, 34.21], address: '西门商圈' },
+      creator: user._id
+    },
+    {
+      _id: makeId(),
+      name: '烧烤铺',
+      description: '深夜食堂 现烤新鲜',
+      coverImage: '',
+      menuImages: [],
+      location: { type: 'Point', coordinates: [108.99, 34.23], address: '南门夜市' },
+      creator: user._id
+    },
+    {
+      _id: makeId(),
+      name: '砂锅馆',
+      description: '砂锅土豆粉 砂锅米线',
+      coverImage: '',
+      menuImages: [],
+      location: { type: 'Point', coordinates: [108.93, 34.25], address: '北门小吃街' },
+      creator: user._id
     }
   ]
 
@@ -59,7 +86,19 @@ function buildMock() {
     { _id: makeId(), storeId: stores[1]._id, name: '酸菜牛肉面', price: 21, creator: user._id, likeCount: 61, reportCount: 0, status: 'active' },
     { _id: makeId(), storeId: stores[2]._id, name: '照烧鸡腿饭', price: 26, creator: user._id, likeCount: 102, reportCount: 0, status: 'active' },
     { _id: makeId(), storeId: stores[2]._id, name: '黑椒牛排饭', price: 36, creator: user._id, likeCount: 58, reportCount: 0, status: 'active' },
-    { _id: makeId(), storeId: stores[2]._id, name: '咖喱猪排饭', price: 28, creator: user._id, likeCount: 73, reportCount: 0, status: 'active' }
+    { _id: makeId(), storeId: stores[2]._id, name: '咖喱猪排饭', price: 28, creator: user._id, likeCount: 73, reportCount: 0, status: 'active' },
+    // 拌饭社
+    { _id: makeId(), storeId: stores[3]._id, name: '石锅拌饭', price: 25, creator: user._id, likeCount: 88, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[3]._id, name: '辣牛拌饭', price: 27, creator: user._id, likeCount: 64, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[3]._id, name: '泡菜拌饭', price: 22, creator: user._id, likeCount: 71, reportCount: 0, status: 'active' },
+    // 烧烤铺
+    { _id: makeId(), storeId: stores[4]._id, name: '孜然羊肉串', price: 5, creator: user._id, likeCount: 210, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[4]._id, name: '烤鸡翅', price: 8, creator: user._id, likeCount: 166, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[4]._id, name: '烤土豆片', price: 4, creator: user._id, likeCount: 93, reportCount: 0, status: 'active' },
+    // 砂锅馆
+    { _id: makeId(), storeId: stores[5]._id, name: '砂锅土豆粉', price: 18, creator: user._id, likeCount: 132, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[5]._id, name: '砂锅米线', price: 16, creator: user._id, likeCount: 97, reportCount: 0, status: 'active' },
+    { _id: makeId(), storeId: stores[5]._id, name: '酸辣粉', price: 15, creator: user._id, likeCount: 85, reportCount: 0, status: 'active' }
   ]
 
   return { user, stores, menuItems }
@@ -132,9 +171,16 @@ async function generateListImage() {
   const titleHeight = 60
   const logoSize = 40
   const width = 420
-  let contentLines = 0
-  for (const g of groups) contentLines += 1 + g.items.length
-  const height = margin + Math.max(logoSize, titleHeight) + 20 + contentLines * itemLine + groups.length * 10 + margin + 30
+  const titleBlockBottom = margin + Math.max(logoSize, titleHeight) + 30
+  let ySim = titleBlockBottom
+  for (const g of groups) {
+    ySim += headerLine + 6
+    ySim += g.items.length * itemLine
+    ySim += 4
+  }
+  const totalBlock = 36
+  const footerBlock = 40
+  const height = ySim + totalBlock + footerBlock
 
   const canvas = createCanvas(width, height)
   const ctx = canvas.getContext('2d')
@@ -179,7 +225,7 @@ async function generateListImage() {
   ctx.lineTo(width - margin, margin + Math.max(logoSize, titleHeight) - 20)
   ctx.stroke()
 
-  let y = margin + Math.max(logoSize, titleHeight) + 30
+  let y = titleBlockBottom
   const priceRight = width - margin - 12
   for (const g of groups) {
     ctx.fillStyle = '#FFF3E8'
