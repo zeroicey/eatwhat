@@ -13,9 +13,6 @@ export function createApp() {
   // 配置 Pinia
   const pinia = createPinia()
   app.use(pinia)
-
-
-
   return {
     app,
     pinia

@@ -15,7 +15,7 @@
       }
     },
     {
-      "path": "pages/eatwhat/index",
+      "path": "pages/ai/index",
       "style": {
         "navigationBarTitleText": "吃什么"
       }
@@ -83,7 +83,7 @@
         "selectedIconPath": "static/icons/tabbar/discover.png"
       },
       {
-        "pagePath": "pages/eatwhat/index",
+        "pagePath": "pages/ai/index",
         "text": "吃什么",
         "iconPath": "static/icons/tabbar/bot.png",
         "selectedIconPath": "static/icons/tabbar/bot.png"

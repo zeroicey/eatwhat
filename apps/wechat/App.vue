@@ -11,17 +11,17 @@ const cartStore = useCartStore()
 
 onLaunch(() => {
   console.log('App Launch')
-  
+
   // 获取系统信息
   appStore.getSystemInfo()
-  
+
   // 监听网络状态
   appStore.watchNetworkStatus()
-  
+
   // 恢复用户 Token
   userStore.restoreToken()
   cartStore.restoreCart()
-  
+
   // 检查认证状态
   if (!userStore.checkAuth()) {
     // 未登录，跳转到登录页
@@ -35,13 +35,13 @@ onLaunch(() => {
         avatar: me.avatarUrl || me.avatar || ''
       }
       userStore.updateProfile(mapped)
-    }).catch(() => {})
+    }).catch(() => { })
   }
 })
 
 onShow(() => {
   console.log('App Show')
-  
+
   // 检查 Token 是否过期
   if (userStore.isLoggedIn && userStore.isTokenExpired) {
     userStore.logout()
@@ -65,4 +65,15 @@ onHide(() => {
 page {
   height: 100%;
 }
+</style>
+<style lang="less">
+button {
+  margin: 0;
+
+  &::after {
+    border: none;
+  }
+}
+
+@import './uni_modules/ym-chat-ai/styles/index.less';
 </style>
