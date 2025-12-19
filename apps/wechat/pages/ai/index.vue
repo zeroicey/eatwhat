@@ -6,7 +6,7 @@
         <!-- welcome -->
         <view v-if="chatStore.getShowWelcome" class="welcome">
           <view class="welcome-text">
-            👋&nbsp;你好，我是AI问答助手，我可以帮助你回答问题。请直接发送消息开始对话！
+            👋&nbsp;你好，我是吃什么的AI食物科学家助手。我可以为你分析今天吃什么、推荐搭配与不建议的食物，并制定更专业的饮食习惯。直接告诉我你的口味、预算或健康目标，开始吧！
           </view>
         </view>
         <YmBubble v-for="(msg, index) in chatStore.getMessages" :key="index" :is-markdown="msg.isMarkdown"
@@ -45,6 +45,7 @@ import { useChatStore } from "@/stores/chat";
 import YmBubble from "@/uni_modules/ym-chat-ai/components/YmBubble/index.vue";
 import YmSender from "@/uni_modules/ym-chat-ai/components/YmSender/index.vue";
 import YmAttachments from "@/uni_modules/ym-chat-ai/components/YmAttachments/index.vue";
+import { sendChat } from "@/api/ai";
 
 
 const chatFlowConfig = {
@@ -108,29 +109,40 @@ const handleSend = async (event: any) => {
   chatStore.addUserMessage(message, chatStore.getAttachmentFiles);
   chatStore.addAiMessage();
 
-  // 模拟AI回复
-  simulateAiResponse();
+  // 调用真实接口
+  await realAiResponse(message);
   chatStore.clearAttachments();
 }
 
-// 模拟AI回复
-const simulateAiResponse = () => {
-  chatStore.setSending(true);
-  const response = generateAiResponse();
-  let index = 0;
-
-  // 逐字符输出，每100ms输出一个字符
-  const typeInterval = setInterval(() => {
-    if (index < response.length) {
-      chatStore.updateLastMessage(response[index]);
-      index++;
-      scrollToBottom();
-    } else {
-      // 输出完成
-      clearInterval(typeInterval);
-      chatStore.setSending(false);
-    }
-  }, 100);
+// 实际AI回复（打字机效果展示返回内容）
+const realAiResponse = async (userMessage: string) => {
+  try {
+    chatStore.setSending(true);
+    const data = await sendChat({
+      messages: [
+        { role: 'system', content: '你是顶级食物科学家与营养顾问。你的任务是根据用户的场景、口味偏好、预算与健康目标，分析他们可以吃什么、建议吃什么、不建议吃什么，并给出科学依据与可执行建议。回答要求：用中文；先给结论，后给理由；分点清晰；兼顾性价比与可获得性；如用户提供食材/菜单，给出合理搭配与替代方案；提醒潜在过敏、慢性病与饮食禁忌；可给一天/一周饮食习惯规划与注意事项。' },
+        { role: 'user', content: userMessage }
+      ],
+      model: 'openai/gpt-4o'
+    });
+    const response: string = (data?.content ?? '').toString();
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < response.length) {
+        chatStore.updateLastMessage(response[index]);
+        index++;
+        scrollToBottom();
+      } else {
+        clearInterval(typeInterval);
+        chatStore.setSending(false);
+        chatStore.setLastAiMessageLoading(false);
+      }
+    }, 30);
+  } catch (e: any) {
+    chatStore.setLastMessageError(e?.message || 'AI接口调用失败');
+    chatStore.setSending(false);
+    chatStore.setLastAiMessageLoading(false);
+  }
 }
 
 // 模拟文件上传
@@ -189,28 +201,6 @@ page {
   background: var(--bg-primary);
   border-radius: var(--radius-large);
   box-shadow: var(--shadow-sm);
-}
-
-.index-top {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 200rpx;
-  padding: 0 var(--space-md);
-  box-shadow: var(--shadow-sm);
-
-  .top-title {
-    display: flex;
-    align-items: center;
-    padding: 0 var(--space-md);
-    height: 65rpx;
-
-    .title {
-      font-size: var(--font-base);
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-  }
 }
 
 .chat-container {

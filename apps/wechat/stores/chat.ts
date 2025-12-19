@@ -65,6 +65,16 @@ export const useChatStore = defineStore('chat', {
         this.messages[this.messages.length - 1].content += content
       }
     },
+ 
+    // 设置最后一条AI消息的加载状态
+    setLastAiMessageLoading(loading: boolean) {
+      if (this.messages.length > 0) {
+        const lastMessage = this.messages[this.messages.length - 1]
+        if (lastMessage.position === 'left') {
+          lastMessage.loading = loading
+        }
+      }
+    },
 
     // 更新最后一条消息的资源
     updateLastMessageResources(resources: any[]) {
