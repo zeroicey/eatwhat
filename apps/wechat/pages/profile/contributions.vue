@@ -4,7 +4,7 @@
 		<view v-if="!isLoggedIn" class="empty">
 			<uni-icons type="person" size="36"></uni-icons>
 			<text class="empty-text">请先登录后查看你的贡献</text>
-			<button class="btn primary" @click="goLogin">去登录</button>
+			<button class="primary-btn" @click="goLogin">去登录</button>
 		</view>
 	<view v-else class="grid">
 			<view class="card">
@@ -16,7 +16,7 @@
 						<text class="item-text ellipsis">{{ s.name }}</text>
 					</view>
 				</view>
-				<button class="btn" @click="goDiscover">浏览店铺</button>
+				<button class="outline-btn" @click="goDiscover">浏览店铺</button>
 			</view>
 			<view class="card">
 				<text class="card-title">我录入的菜品</text>
@@ -27,7 +27,7 @@
 						<text class="item-text ellipsis">{{ m.name }} · ¥{{ m.price }}</text>
 					</view>
 				</view>
-				<button class="btn" @click="goHome">浏览首页</button>
+				<button class="outline-btn" @click="goHome">浏览首页</button>
 			</view>
 		</view>
 	</view>
@@ -126,16 +126,38 @@ function goHome() {
 }
 .item { display: flex; align-items: center; gap: 8rpx; padding: 12rpx; background: #F8F9FA; border-radius: 12rpx; }
 .item-text { font-size: 26rpx; color: #495057; }
-.btn {
-	height: 72rpx;
-	border-radius: 36rpx;
-	font-size: 28rpx;
-	padding: 0 28rpx;
-	background: #F1F3F5;
-	color: #343A40;
-}
-.btn.primary {
-	background: #FF6B6B;
+.primary-btn {
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	border-radius: 40rpx;
+	background: linear-gradient(135deg, #FF6B6B 0%, #FF8787 100%);
 	color: #FFFFFF;
+	font-size: 28rpx;
+	font-weight: 600;
+	border: none;
+	box-shadow: 0 4rpx 12rpx rgba(255, 107, 107, 0.3);
+	margin-top: 12rpx;
+
+	&:active {
+		opacity: 0.9;
+		transform: scale(0.98);
+	}
+}
+.outline-btn {
+	width: 100%;
+	height: 80rpx;
+	line-height: 76rpx;
+	border-radius: 40rpx;
+	background: #FFFFFF;
+	color: #FF6B6B;
+	font-size: 28rpx;
+	font-weight: 600;
+	border: 2rpx solid #FF6B6B;
+	margin-top: 12rpx;
+
+	&:active {
+		background: #FFF5F5;
+	}
 }
 </style>

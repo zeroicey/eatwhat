@@ -12,7 +12,6 @@
   "dependencies": {
     "@dcloudio/uni-app": "latest",
     "@dcloudio/uni-mp-weixin": "latest",
-    "@tanstack/vue-query": "^5.92.1",
     "@vue/shared": "^3.3.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
